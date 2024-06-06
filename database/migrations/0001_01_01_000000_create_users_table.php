@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('no_hp')->nullable();
             $table->text('alamat')->nullable();
+            $table->enum('role', ['1', '2'])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -23,10 +23,12 @@ Route::get('/user-detail', function () {
 Route::get('/login', function () {
     return view('user.auth.loginUser');
 });
+Route::post('/login', [validateForm::class, 'login'])->name('login.user');
 Route::get('/register', function () {
     return view('user.auth.registerUser');
 });
 Route::post('/register', [validateForm::class, 'registerUser'])->name('register.user');
+
 // admin
 Route::get('/admin', function () {
     return view('admin.index');
