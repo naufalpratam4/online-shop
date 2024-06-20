@@ -25,7 +25,7 @@ class POSController extends Controller
             $total_jumlah_harga = 0;
         }
 
-        return view('admin.POS.POS', compact('product', 'order', 'total_jumlah_harga', 'orders'));
+        return view('admin.POS.POS', compact('user', 'product', 'order', 'total_jumlah_harga', 'orders'));
     }
 
     public function POSAdd(Request $request)
@@ -34,6 +34,9 @@ class POSController extends Controller
         $product_id = $request->input('product_id');
         $product = Product::where('id', $product_id)->first();
         // Cari order berdasarkan admin_id dan product_id
+        // Tentukan nilai randomNumber terlebih dahulu
+        $randomNumber = mt_rand(100000, 999999);
+
         $order = OrderAdmin::where('admin_id', $user->id)
             ->where('status', 'Belum Selesai')
             ->where('product_id', $product_id)
@@ -47,9 +50,8 @@ class POSController extends Controller
             $order->save();
         } else {
             // Jika order belum ada, buat data baru
-            $randomNumber = mt_rand(100000, 999999);
             $data = [
-                'no_transaksi' => $product->nama_produk . '-' . $randomNumber,
+                'no_transaksi' =>  $randomNumber,
                 'admin_id' => $user->id,
                 'product_id' => $product_id,
                 'jumlah' => 1,
@@ -60,6 +62,7 @@ class POSController extends Controller
             ];
             OrderAdmin::create($data);
         }
+
 
 
 
@@ -102,7 +105,7 @@ class POSController extends Controller
         $order = OrderAdmin::with('product')->where('admin_id', $user->id)->where('status', 'Belum Selesai')->get();
         $total_jumlah_harga = $order->sum('total_harga');
 
-        return view('admin.POS.OrderSummary', compact('order', 'total_jumlah_harga'));
+        return view('admin.POS.OrderSummary', compact('user', 'order', 'total_jumlah_harga'));
     }
     public function orderSummarySubmit(Request $request)
     {

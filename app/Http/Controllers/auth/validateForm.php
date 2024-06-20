@@ -99,4 +99,12 @@ class validateForm extends Controller
         User::create($data);
         return redirect()->back()->with('success', 'Berhasil Register Akun, silahkan login');
     }
+
+    public function logoutAdmin(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login-admin');
+    }
 }
