@@ -36,6 +36,13 @@
                         <span class="ms-3">Produk</span>
                     </a>
                 </li>
+                <li class="{{ Request::is('admin/pos') ? 'bg-green-500 rounded-lg' : '' }}">
+                    <a href="/admin/pos"
+                        class="{{ Request::is('admin/pos') ? 'text-white' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white  group">
+                        <i class="fa-solid fa-cash-register"></i>
+                        <span class="ms-3">POS</span>
+                    </a>
+                </li>
 
             </ul>
         </div>

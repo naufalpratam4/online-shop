@@ -1,6 +1,6 @@
 @extends('admin.index')
 @section('content')
-    <div>
+    <div class="">
         <!-- Menampilkan Pesan Kesalahan -->
         @if ($errors->any())
             <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
@@ -164,7 +164,7 @@
     </form>
 
     <!-- modal add kategori -->
-    <form action="{{ route('admin.add.produk') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.add.kategori') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div id="modal-kategori" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -178,7 +178,7 @@
                         </h3>
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="static-modal">
+                            data-modal-hide="modal-kategori">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 14 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -196,7 +196,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                                 Kategori
                             </label>
-                            <input type="text" id="base-input" name="nama_produk"
+                            <input type="text" id="base-input" name="nama_kategori"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500">
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                         <button data-modal-hide="static-modal" type="submit"
                             class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Tambah
                         </button>
-                        <button data-modal-hide="static-modal" type="button"
+                        <button data-modal-hide="modal-kategori" type="button"
                             class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Batal</button>
                     </div>
                 </div>

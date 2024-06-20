@@ -2,7 +2,7 @@
     @foreach ($produk as $item)
         <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
-                <img class="rounded-t-lg w-full"
+                <img class="rounded-t-lg w-full" style="aspect-ratio: 3 / 2;"
                     src="{{ isset($item->foto_produk) ? asset('storage/' . $item->foto_produk) : '' }}" alt="" />
             </a>
             <div class="px-4">

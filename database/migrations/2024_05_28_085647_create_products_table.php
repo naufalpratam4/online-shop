@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('foto_produk')->nullable();
             $table->text('deskripsi');
             $table->string('harga');
-            $table->text('link')->nullable();
             $table->boolean('visible');
+            $table->bigInteger('stock')->nullable();
             $table->unsignedBigInteger('kategori_id')->nullable();
             $table->timestamps();
             $table->foreign('kategori_id')->references('id')->on('kategoris');
