@@ -29,7 +29,7 @@
 </head>
 
 <body class="bg-white p-4">
-    <form action="{{ route('admin.order.submit') }}" method="POST">
+    <form action="{{ route('admin.order.riwayat') }}" method="POST">
         @csrf
         <div class="text-center mb-4">
             <h1 class="text-2xl font-bold">Udang Keju Maknyes</h1>
@@ -39,10 +39,10 @@
         </div>
 
         <div class="border-t border-b border-gray-300 py-2 mb-4">
-            @foreach ($struk as $item)
+            @foreach ($cartItem as $item)
                 <div class="flex justify-between mb-1">
                     <span class="text-sm text-gray-800">{{ $item->product->nama_produk }}</span>
-                    <span class="text-sm text-gray-800">@rupiah($item->total_harga)</span>
+                    <span class="text-sm text-gray-800">@rupiah($item->price)</span>
                     <input type="hidden" name="id[{{ $item->id }}]" value="{{ $item->id }}">
                     <input type="hidden" name="status[{{ $item->id }}]" value="selesai">
                 </div>

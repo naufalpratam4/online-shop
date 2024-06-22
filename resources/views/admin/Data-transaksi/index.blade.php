@@ -122,57 +122,34 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
+
                                 <th scope="col" class="px-4 py-3">Nomor Transaksi</th>
                                 <th scope="col" class="px-4 py-3">Tanggal<i class="fa-solid fa-sort"></i></th>
                                 <th scope="col" class="px-4 py-3">Produk<i class="fa-solid fa-sort"></i></th>
                                 <th scope="col" class="px-4 py-3">Admin</th>
                                 <th scope="col" class="px-4 py-3">Jumlah</th>
                                 <th scope="col" class="px-4 py-3">Total Harga</th>
+                                <th scope="col" class="px-4 py-3"></th>
                             </tr>
                         </thead>
                         <tbody id="table-body">
-                            @foreach ($transaksi as $item)
+                            @foreach ($sales as $item)
                                 <tr class="border-b dark:border-gray-700">
-                                    <th scope="row"
-                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white bates">
-                                        {{ $item->no_transaksi }}</th>
-                                    <td class="px-4 py-3">{{ $item->tanggal }}</td>
+
+                                    <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
+                                        {{ $item->order_id }}</th>
+                                    <td class="px-4 py-3">{{ $item->order->created_at->format('Y-m-d') }}</td>
                                     <td class="px-4 py-3">{{ $item->product->nama_produk }}</td>
-                                    <td class="px-4 py-3">{{ $item->user->name }}</td>
-                                    <td class="px-4 py-3">{{ $item->jumlah }}</td>
-                                    <td class="px-4 py-3">@rupiah($item->total_harga)</td>
+                                    <td class="px-4 py-3">{{ $item->order->user->name }}</td>
+                                    <td class="px-4 py-3">{{ $item->quantity }}</td>
+                                    <td class="px-4 py-3">@rupiah($item->price)</td>
                                     <td class="px-4 py-3 flex items-center justify-end">
-                                        <button id="dropdown-action-{{ $item->id }}n"
-                                            data-dropdown-toggle="dropdown-action-{{ $item->id }}"
-                                            class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                                            type="button">
-                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                            </svg>
-                                        </button>
-                                        <div id="dropdown-action-{{ $item->id }}"
-                                            class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="dropdown-action-{{ $item->id }}">
-                                                <li>
-                                                    <a href="#"
-                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"
-                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                </li>
-                                            </ul>
-                                            <div class="py-1">
-                                                <a href="#"
-                                                    class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                                            </div>
-                                        </div>
+                                        <button type="button"
+                                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-1.5 me-2 mb-2 ">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -180,14 +157,14 @@
                     aria-label="Table navigation">
                     <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                         Showing
-                        <span class="font-semibold text-gray-900 dark:text-white">{{ $transaksi->firstItem() }}</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">{{ $sales->firstItem() }}</span>
                         to
-                        <span class="font-semibold text-gray-900 dark:text-white">{{ $transaksi->lastItem() }}</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">{{ $sales->lastItem() }}</span>
                         of
-                        <span class="font-semibold text-gray-900 dark:text-white">{{ $transaksi->total() }}</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">{{ $sales->total() }}</span>
                     </span>
                     <div>
-                        {{ $transaksi->links('vendor.pagination.paginateAdmin') }}
+                        {{ $sales->links('vendor.pagination.paginateAdmin') }}
                     </div>
                 </nav>
             </div>

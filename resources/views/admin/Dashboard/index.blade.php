@@ -3,7 +3,7 @@
     <div class=" ">
         <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
             <div class="grid md:grid-cols-3 gap-4 mb-4">
-                <div class="p-2 bg-gray-50 h-64 rounded">
+                <div class="p-4 bg-gray-50 h-72 rounded">
                     <p>Transaksi</p>
                     <div id="splinechart"></div>
                     <div>
@@ -19,6 +19,7 @@
                             }],
                             chart: {
                                 type: 'area',
+                                height: '100%',
                                 zoom: {
                                     enabled: false
                                 }
@@ -35,7 +36,21 @@
                             },
                             xaxis: {
                                 categories: Object.keys(customersPerMonth)
-                            }
+                            },
+                            responsive: [{
+                                breakpoint: 480,
+                                options: {
+                                    chart: {
+                                        width: '100%'
+                                    },
+                                    xaxis: {
+                                        labels: {
+                                            rotate: -45,
+                                            hideOverlappingLabels: true
+                                        }
+                                    }
+                                }
+                            }]
                         };
 
                         var chart = new ApexCharts(document.querySelector("#splinechart"), options);
@@ -44,7 +59,7 @@
 
                 </div>
 
-                <div class="p-2 h-64 rounded bg-gray-50 dark:bg-gray-800">
+                <div class="p-4 h-72 rounded bg-gray-50 dark:bg-gray-800">
                     <div>Pendapatan Bulanan (Rp)</div>
                     <div id="areachart"></div>
                     <script>
@@ -57,12 +72,23 @@
                             }],
                             chart: {
                                 type: 'bar',
+                                height: '100%'
                             },
                             plotOptions: {
                                 bar: {
                                     horizontal: false,
-                                    columnWidth: '100%',
-                                    endingShape: 'rounded'
+                                    columnWidth: '50%',
+                                    endingShape: 'rounded',
+                                    colors: {
+                                        backgroundBarColors: [],
+                                        backgroundBarOpacity: 1,
+                                        backgroundBarRadius: 0,
+                                        ranges: [{
+                                            from: 0,
+                                            to: Infinity,
+                                            color: '#4CAF50' // Warna hijau
+                                        }]
+                                    }
                                 },
                             },
                             dataLabels: {
@@ -90,34 +116,50 @@
                                         return "Rp " + val + " Rupiah"
                                     }
                                 }
-                            }
+                            },
+                            responsive: [{
+                                breakpoint: 480,
+                                options: {
+                                    chart: {
+                                        width: '100%'
+                                    },
+                                    plotOptions: {
+                                        bar: {
+                                            columnWidth: '80%'
+                                        }
+                                    }
+                                }
+                            }]
                         };
 
                         var chart = new ApexCharts(document.querySelector("#areachart"), options);
                         chart.render();
                     </script>
                 </div>
-                <div class="p-2 h-64 rounded bg-gray-50 dark:bg-gray-800">
+                <div class="p-4 h-72 rounded bg-gray-50 dark:bg-gray-800">
                     <div>Stok Product</div>
 
                     <div id="piechart"></div>
                     <script>
                         var options = {
-
+                            series: [44, 55, 13, 43, 22],
                             chart: {
-                                type: 'donut'
+                                type: 'pie',
+                                height: '100%'
                             },
-                            plotOptions: {
-                                pie: {
-                                    donut: {
-                                        size: '40%'
+                            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+                            responsive: [{
+                                breakpoint: 480,
+                                options: {
+                                    chart: {
+                                        width: 280
+                                    },
+                                    legend: {
+                                        position: 'bottom'
                                     }
                                 }
-                            },
-                            series: [44, 55, 13, 33],
-                            labels: ['Udang Keju', 'Risol Mayo', 'Risol Keju', 'Risol Ayam']
-
-                        }
+                            }]
+                        };
 
                         var chart = new ApexCharts(document.querySelector("#piechart"), options);
 

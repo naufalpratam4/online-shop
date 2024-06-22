@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('cart_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
+            $table->bigInteger('jumlah');
+            $table->float('total_harga');
             $table->timestamps();
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

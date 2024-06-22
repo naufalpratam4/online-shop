@@ -72,6 +72,7 @@ Route::get('/admin/pos/struk', [POSController::class, 'Struk'])->name('admin.str
 Route::post('/admin/pos/order', [POSController::class, 'POSAdd'])->name('admin.posAdd');
 Route::post('/admin/pos/update-jumlah-produk', [POSController::class, 'updateJumlahProduk'])->name('admin.pos.updateProduk');
 Route::post('/admin/pos/order-submit', [POSController::class, 'orderSummarySubmit'])->name('admin.order.submit');
+Route::post('/admin/pos/riwayat', [POSController::class, 'riwayat'])->name('admin.order.riwayat');
 Route::delete('/admin/pos/delete-produk/{id}', [POSController::class, 'deleteOrder'])->name('admin.deleteOrder');
 
 // Admin - Data Transaksi

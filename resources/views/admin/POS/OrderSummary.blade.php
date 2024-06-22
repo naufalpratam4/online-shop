@@ -10,7 +10,7 @@
                         <div class="relative overflow-x-auto border-b border-gray-200 dark:border-gray-800">
                             <table class="w-full text-left font-medium text-gray-900 dark:text-white md:table-fixed">
                                 <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
-                                    @foreach ($order as $item)
+                                    @foreach ($cartItem as $item)
                                         <tr>
                                             <td class="whitespace-nowrap py-4 md:w-[384px]">
                                                 <input type="hidden" name="id[{{ $item->id }}]"
@@ -38,7 +38,6 @@
 
                                             <td class="p-4 text-right text-base font-bold text-gray-900 dark:text-white">
                                                 @rupiah($item->total_harga)
-
                                             </td>
                                         </tr>
                                     @endforeach
@@ -65,14 +64,12 @@
 
 
                                 <div class="w-full">
-                                    <a href="/admin/pos/struk">
-                                        <button type="button"
-                                            class="mt-4 bg-green-500 flex w-full items-center justify-center rounded-lg bg-primary-700  px-5 py-2.5 text-sm font-medium text-white hover:bg-green-600  sm:mt-0">Send
-                                            the order</button>
-                                    </a>
+
+                                    <button type="submit"
+                                        class="mt-4 bg-green-500 flex w-full items-center justify-center rounded-lg bg-primary-700  px-5 py-2.5 text-sm font-medium text-white hover:bg-green-600  sm:mt-0">Send
+                                        the order</button>
+
                                 </div>
-
-
                             </div>
                         </div>
                 </form>

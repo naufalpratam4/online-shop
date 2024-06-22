@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Data_transaksi;
 
 use App\Http\Controllers\Controller;
+use App\Models\order_item;
 use App\Models\OrderAdmin;
+use App\Models\Orders;
+use App\Models\Riwayat;
 use Illuminate\Http\Request;
 
 class DataTransaksiController extends Controller
@@ -14,8 +17,10 @@ class DataTransaksiController extends Controller
         $perPage = $request->input('per_page', session('per_page', 5)); // Ambil dari request atau session, default 5
         session(['per_page' => $perPage]); // Simpan dalam session
 
-        $transaksi = OrderAdmin::with('product')->where('status', 'Selesai')->paginate($perPage);
 
-        return view('admin.Data-transaksi.index', compact('user', 'transaksi', 'perPage'));
+        $sales = order_item::with('order')->paginate($perPage);
+
+        // dd($sales);
+        return view('admin.Data-transaksi.index', compact('user', 'perPage', 'sales'));
     }
 }

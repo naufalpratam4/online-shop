@@ -52,7 +52,7 @@
             style="height: 90vh; overflow: hidden;">
             <div class="flex-1 overflow-y-auto custom-scrollbar">
                 <div class="text-center font-semibold text-xl py-5">Total pembayaran</div>
-                @foreach ($order as $item)
+                @foreach ($cartItem as $item)
                     <div class="flex mb-2 items-center gap-1">
                         {{-- kiri --}}
                         <button type="button" data-modal-target="popup-modal-{{ $item->id }}"
@@ -124,12 +124,12 @@
                                         <button type="submit" class="p-2 bg-green-500 text-white">Tambah</button>
                                     </form>
                                 </div>
-                                <div class="ps-1 w-5/12">Rp {{ $item->total_harga }}</div>
+                                <div class="ps-1 w-5/12">@rupiah($item->total_harga)</div>
                             </div>
                         </div>
                     </div>
                 @endforeach
-                <div class="bg-gray-100 p-3 rounded-sm">Total : Rp {{ $total_jumlah_harga }}</div>
+                <div class="bg-gray-100 p-3 rounded-sm">Total : @rupiah($total_jumlah_harga) </div>
             </div>
             <div class="mt-5">
                 <a href="/admin/pos/order-summary">
