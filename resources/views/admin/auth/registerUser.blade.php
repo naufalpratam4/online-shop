@@ -26,7 +26,7 @@
 
 
         <div class="py-16 pt-32">
-            <form action="{{ route('register.user') }}" method="POST">
+            <form action="{{ route('register.admin') }}" method="POST">
                 @csrf
                 <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-3xl lg:max-w-4xl">
                     <div class="hidden lg:block lg:w-10/12 bg-cover"

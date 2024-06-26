@@ -41,9 +41,9 @@
                         <span class="ms-3">Dashboard</span>
                     </a>
                 </li>
-                <li class="{{ Request::is('admin/produk') ? 'bg-green-500 rounded-lg' : '' }}">
+                <li class="{{ Request::is('admin/produk', 'admin/produk/*') ? 'bg-green-500 rounded-lg' : '' }}">
                     <a href="/admin/produk"
-                        class="{{ Request::is('admin/produk') ? 'text-white' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white group">
+                        class="{{ Request::is('admin/produk', 'admin/produk/*') ? 'text-white' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white group">
                         <i class="fa-solid fa-store"></i>
                         <span class="ms-3">Produk</span>
                     </a>

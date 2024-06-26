@@ -62,7 +62,12 @@ class validateForm extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect('/admin');
+            if (Auth::user()->role == 'Admin') {
+                return redirect('/admin');
+            } else {
+                Auth::logout();
+                return redirect()->back()->withErrors(['email' => 'Anda tidak memiliki akses sebagai Admin']);
+            }
         }
 
         if (!$request->filled('email') || !User::where('email', $request->input('email'))->exists()) {
@@ -97,7 +102,7 @@ class validateForm extends Controller
 
 
         User::create($data);
-        return redirect()->back()->with('success', 'Berhasil Register Akun, silahkan login');
+        return redirect('login-admin')->with('success', 'Berhasil Register Akun, silahkan login');
     }
 
     public function logoutAdmin(Request $request)

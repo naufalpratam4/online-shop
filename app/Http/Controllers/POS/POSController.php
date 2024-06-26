@@ -147,12 +147,11 @@ class POSController extends Controller
         $order = Orders::create([
             'user_id' => auth()->id(),
             'total' => $total_jumlah_harga,
-            'status' => 'pending',
+            'tatus' => 'pending',
         ]);
 
         $jumlah_product = $cartItem->sum('jumlah');
 
-        // dd($jumlah_product);
         foreach ($cartItem as $item) {
             order_item::create([
                 'order_id' => $order->id,
@@ -160,7 +159,13 @@ class POSController extends Controller
                 'quantity' => $item->jumlah,
                 'price' => $item->total_harga
             ]);
+
+            // Update product quantity
+            $product = Product::where('id', $item->product_id)->first();
+            $product->stock -= $item->jumlah;
+            $product->save();
         }
+
 
         $hapusCart = CartItem::where('cart_id', $cart->id);
         $hapusCart->delete();

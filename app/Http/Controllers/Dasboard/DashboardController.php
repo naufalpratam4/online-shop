@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dasboard;
 use App\Http\Controllers\Controller;
 use App\Models\order_item;
 use App\Models\OrderAdmin;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -17,6 +18,13 @@ class DashboardController extends Controller
 
         // Inisialisasi array untuk menyimpan hasil per bulan
         $totalHargaPerMonth = [];
+
+        $totalStockProduk = [];
+        $stokproduk = Product::where('visible', 1)->get();
+
+        $labels = $stokproduk->pluck('nama_produk')->toArray();
+        $stocks = $stokproduk->pluck('stock')->toArray();
+
 
         // Loop untuk bulan Januari (bulan ke-1) hingga Desember (bulan ke-12)
         for ($month = 1; $month <= 12; $month++) {
@@ -50,7 +58,7 @@ class DashboardController extends Controller
             return response()->json(['customers_per_month' => $customersPerMonth]);
         } else {
             // Jika request adalah web view
-            return view('admin.dashboard.index', compact('user', 'customersPerMonth', 'totalHargaPerMonth'));
+            return view('admin.dashboard.index', compact('user', 'labels', 'stocks', 'customersPerMonth', 'totalHargaPerMonth'));
         }
     }
 }

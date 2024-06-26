@@ -3,12 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->user();
+        $produk = Product::with('kategori')->get();
+        $produkId = '';
+        $kategori = Kategori::all();
+        $produkTotal = Product::count();
+        $produkTersedia = Product::where('visible', 1)->count();
+        return view('admin.produk.produk', compact('user', 'produk', 'kategori', 'produkTotal', 'produkTersedia', 'produkId'));
+    }
+    public function productId($nama_produk)
+    {
+
+        $user = auth()->user();
+        $produk = Product::all();
+        $produkId = Product::where('nama_produk', $nama_produk)->first();
+        // dd($produkId);
+
+        $kategori = Kategori::all();
+        $produkTotal = Product::count();
+        $produkTersedia = Product::where('visible', 1)->count();
+
+        return view('admin.produk.produk', compact('user', 'produk', 'kategori', 'produkTotal', 'produkTersedia', 'produkId'));
+    }
+
     public function addProduk(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -16,7 +42,7 @@ class ProductController extends Controller
             // 'foto_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi untuk file gambar
             'deskripsi' => 'nullable|string',
             'harga' => 'required|numeric',
-            'link' => 'nullable|url',
+            'stock' => 'nullable|numeric',
             'visible' => 'required|boolean',
             'kategori_id' => 'nullable|exists:kategoris,id', // Pastikan kategori_id ada di tabel kategoris
         ]);
@@ -40,12 +66,24 @@ class ProductController extends Controller
 
         $produk['deskripsi'] = $request->input('deskripsi');
         $produk['harga'] = $request->input('harga');
-        $produk['link'] = $request->input('link');
+        $produk['stock'] = $request->input('stock');
         $produk['visible'] = $request->input('visible');
         $produk['kategori_id'] = $request->input('kategori_id');
 
         Product::create($produk);
         return redirect()->back()->with('success', 'Berhasil menambahkan data produk');
+    }
+
+    public function updateProduct(Request $request, $id)
+    {
+        Product::find($id)->update([
+            'nama_produk' => $request->input('nama_produk'),
+            'harga' => $request->input('harga'),
+            'stock' => $request->input('stock'),
+            'deskripsi' => $request->input('deskripsi'),
+            'kategori_id' => $request->input('kategori_id'),
+        ]);
+        return redirect()->back()->with('success', 'Berhasil Edit produk');
     }
     public function visible(Request $request, $id)
     {
@@ -66,5 +104,6 @@ class ProductController extends Controller
     {
         $produk = Product::find($id);
         $produk->delete();
+        return redirect()->back()->with('success', 'Berhasil Menghapus produk');
     }
 }

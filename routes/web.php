@@ -39,31 +39,26 @@ Route::post('/register', [validateForm::class, 'registerUser'])->name('register.
 Route::get('/login-admin', function () {
     return view('admin.auth.loginUser');
 });
-Route::post('/login-admin', [validateForm::class, 'loginAdmin'])->name('login.admin');
+
+Route::post('/login-admin', [ValidateForm::class, 'loginAdmin'])->name('login.admin');
 Route::get('/register-admin', function () {
     return view('admin.auth.registerUser');
-});
-Route::post('/register-admin', [validateForm::class, 'registerAdmin'])->name('register.admin');
-Route::post('/admin-logout', [validateForm::class, 'logoutAdmin'])->name('admin.logout');
+})->name('register.admin');
+
+Route::post('/register-admin', [ValidateForm::class, 'registerAdmin'])->name('register.admin');
+
 
 Route::middleware(['Admin'])->group(function () {
-    Route::get('/admin', [DashboardController::class, 'index']);
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 });
-
-
 // Admin produk
-Route::get('/admin/produk', function () {
-    $user = auth()->user();
-    $produk = Product::with('kategori')->get();
-    $kategori = Kategori::all();
-    $produkTotal = Product::count();
-    $produkTersedia = Product::where('visible', 1)->count();
-    return view('admin.produk.produk', compact('user', 'produk', 'kategori', 'produkTotal', 'produkTersedia'));
-});
+Route::get('/admin/produk', [ProductController::class, 'index']);
+Route::get('/admin/produk/{nama_produk}', [ProductController::class, 'productId'])->name('admin.productId');
 Route::post('/admin/produk/post', [ProductController::class, 'addProduk'])->name('admin.add.produk');
 Route::post('/admin/produk/visible/{id}', [ProductController::class, 'visible'])->name('admin.produk.visible');
-Route::delete('/admin/produk/delete/{id}', [ProductController::class, 'deleteProduct'])->name('admin.delete.produk');
+Route::post('/admin/produk/edit/{id}', [ProductController::class, 'updateProduct'])->name('admin.produk.edit');
 Route::post('/admin/produk-kategori/post', [KategoriController::class, 'kategoriPost'])->name('admin.add.kategori');
+Route::delete('/admin/produk/delete/{id}', [ProductController::class, 'deleteProduct'])->name('admin.delete.produk');
 
 // Admin POS
 Route::get('/admin/pos', [POSController::class, 'index']);
@@ -77,3 +72,9 @@ Route::delete('/admin/pos/delete-produk/{id}', [POSController::class, 'deleteOrd
 
 // Admin - Data Transaksi
 Route::get('/admin/data-transaksi', [DataTransaksiController::class, 'index'])->name('admin.data-transaksi');
+Route::get('/admin/data-transaksi/detail/{oder_id}', [DataTransaksiController::class, 'detailTransaksi'])->name('admin.data-transaksi.detail');
+Route::get('/admin/data-transaksi/detail/{order_id}/export', [DataTransaksiController::class, 'exportExcel'])->name('orders.data-transaksi.detail.export');
+Route::delete('/admin/data-transaksi/delete/{order_id}', [DataTransaksiController::class, 'deleteDataTransaksi'])->name('admin.data-transaksi.delete');
+
+// admin logout
+Route::post('/admin-logout', [validateForm::class, 'logoutAdmin'])->name('admin.logout');

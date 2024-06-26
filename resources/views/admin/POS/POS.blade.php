@@ -2,7 +2,7 @@
 @section('content')
     @if (session('success'))
         <div id="alert-border-1"
-            class="fixed top-4 inset-x-0 flex items-center justify-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-800"
+            class="fixed z-40 top-4 inset-x-0 flex items-center justify-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-800"
             role="alert" style="width: 300px; margin: auto;">
             <div class="text-sm font-medium">
                 {{ session('success') }}
@@ -23,17 +23,56 @@
         <div>{{ session('error') }}</div>
     @endif
 
-    <div class="grid md:grid-cols-3 gap-1  ">
+    <div class="grid md:grid-cols-3 gap-2  ">
         <div class=" col-span-2">
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div class="pb-2">
+                <div class="relative w-full">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input type="text" id="search-input"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full pl-10 p-2"
+                        placeholder="Search" required>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const searchInput = document.getElementById('search-input');
+                        const productList = document.getElementById('product-list');
+                        const productItems = productList.getElementsByClassName('product-item');
+
+                        searchInput.addEventListener('input', function() {
+                            const filter = this.value.toLowerCase();
+                            Array.from(productItems).forEach(item => {
+                                const productNameElement = item.querySelector('.font-semibold.text-lg');
+                                if (productNameElement) {
+                                    const productName = productNameElement.innerText.toLowerCase();
+                                    if (productName.includes(filter)) {
+                                        item.style.display = '';
+                                    } else {
+                                        item.style.display = 'none';
+                                    }
+                                }
+                            });
+                        });
+                    });
+                </script>
+
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="product-list">
                 @foreach ($product as $item)
-                    <form action="{{ route('admin.posAdd') }}" method="POST">
+                    <form id="product-list" action="{{ route('admin.posAdd') }}" method="POST" class="product-item">
                         @csrf
                         <button type="submit" class="border p-1 rounded-lg hover:border-green-500">
                             <img class="rounded-t-lg w-full" style="aspect-ratio: 2 / 2;"
                                 src="{{ isset($item->foto_produk) ? asset('storage/' . $item->foto_produk) : '' }}"
                                 alt="" />
-                            <p class="px-1 text-sm pt-2 text-end">Stok : 20</p>
+                            <p class="px-1 text-sm pt-2 text-end">Stock : {{ $item->stock }}</p>
                             <div class="flex justify-between pb-1 px-1">
                                 <input type="hidden" name="product_id" value="{{ $item->id }}" id="">
                                 <p class="font-semibold text-lg">{{ $item->nama_produk }}</p>
@@ -42,10 +81,6 @@
                         </button>
                     </form>
                 @endforeach
-
-
-
-
             </div>
         </div>
         <div class="border p-1 rounded-lg bg-gray-50 flex flex-col   md:right-0 h-screen overflow-hidden"

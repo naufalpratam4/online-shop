@@ -1,9 +1,9 @@
 @extends('admin.index')
 @section('content')
-    <div class="mx-20 md:ms-28 text-2xl font-semibold ">Data Transaksi</div>
-    @if (session('error'))
-        <div class="text-red-500">{{ session('error') }}</div>
-    @endif
+    <div class="mx-20 text-2xl font-semibold"><a href="/admin/data-transaksi"><i
+                class="fa-solid fa-angle-left md:me-4"></i></a>Data
+        Transaksi
+    </div>
     <section class=" dark:bg-gray-900 p-3 sm:p-5">
         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
             <!-- Start coding here -->
@@ -35,10 +35,10 @@
                                 searchInput.addEventListener('input', function() {
                                     const filter = this.value.toLowerCase();
                                     Array.from(rows).forEach(row => {
-                                        const transactionNumberElement = row.querySelector('th');
-                                        if (transactionNumberElement) {
-                                            const transactionNumber = transactionNumberElement.innerText.toLowerCase();
-                                            if (transactionNumber.includes(filter)) {
+                                        const productNameElement = row.querySelector('th.bates');
+                                        if (productNameElement) {
+                                            const productName = productNameElement.innerText.toLowerCase();
+                                            if (productName.includes(filter)) {
                                                 row.style.display = '';
                                             } else {
                                                 row.style.display = 'none';
@@ -65,7 +65,7 @@
 
                         <div class="flex items-center space-x-3 w-full md:w-auto">
                             <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                                class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-200  "
                                 type="button">
 
                                 Data Per Page
@@ -81,29 +81,15 @@
                                 <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                                     <li class="flex items-center">
                                         <input id="pilih5" name="per_page" type="radio" value="5"
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-green-600 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                         <label for="pilih5"
                                             class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">5 Page</label>
                                     </li>
                                     <li class="flex items-center">
                                         <input id="pilih10" name="per_page" type="radio" value="10"
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-green-600 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                         <label for="pilih10"
                                             class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">10
-                                            Page</label>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <input id="pilih10" name="per_page" type="radio" value="100"
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="pilih10"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">100
-                                            Page</label>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <input id="pilih10" name="per_page" type="radio" value="1000"
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="pilih10"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">1000
                                             Page</label>
                                     </li>
                                 </ul>
@@ -139,36 +125,32 @@
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr class="text-center">
+
                                 <th scope="col" class="px-4 py-3">Nomor Transaksi</th>
-                                <th scope="col" class="px-4 py-3">Tanggal<i class="fa-solid fa-sort"></i></th>
-                                <th scope="col" class="px-4 py-3">Admin</th>
+                                <th scope="col" class="px-4 py-3">Product</th>
+                                <th scope="col" class="px-4 py-3">Tanggal<i class="fa-solid fa-sort"></i>
+                                </th>
+                                <th scope="col" class="px-4 py-3">Jumlah</th>
                                 <th scope="col" class="px-4 py-3">Total Harga</th>
-                                <th scope="col" class="px-4 py-3">Aksi</th>
+
                             </tr>
                         </thead>
-                        <tbody id="table-body">
-                            @foreach ($riwayat as $item)
+                        <tbody id="table-body ">
+
+                            @foreach ($orderItem as $item)
                                 <tr class="border-b text-center">
                                     <th scope="row"
-                                        class="text-center px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $item['order_id'] }}</th>
-                                    <td class="px-4 py-3">{{ $item['created_at'] }}</td>
-                                    <td class="px-4 py-3">{{ $item['user_id'] }}</td>
-                                    <td class="px-4 py-3">@rupiah($item['total'])</td>
-                                    <td class="px-4 py-3 ">
-                                        <a href="{{ route('admin.data-transaksi.detail', $item['order_id']) }}">
-                                            <button type="button"
-                                                class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"><i
-                                                    class="fa-regular fa-eye"></i></button>
-                                        </a>
-                                        <button type="button" id="deleteButton"
-                                            data-modal-target="deleteModal-{{ $item['order_id'] }}"
-                                            data-modal-toggle="deleteModal-{{ $item['order_id'] }}"
-                                            class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "><i
-                                                class="fa-solid fa-trash"></i></button>
-                                    </td>
+                                        class="text-center px-4 py-3 font-medium text-blue-500 whitespace-nowrap">
+                                        {{ $item['order_id'] }}
+                                    </th>
+                                    <td class="px-4 py-3">{{ $item->product->nama_produk }}</td>
+                                    <td class="px-4 py-3">{{ $item['created_at']->format('d-m-Y') }}</td>
+                                    <td class="px-4 py-3">{{ $item->quantity }}</td>
+                                    <td class="px-4 py-3">@rupiah($item['price'])</td>
+
+
+
                                 </tr>
-                                @include('admin.Data-transaksi.modal-data-transaksi.modal-delete')
                             @endforeach
                         </tbody>
                     </table>
@@ -177,17 +159,21 @@
                     aria-label="Table navigation">
                     <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                         Showing
-                        <span class="font-semibold text-gray-900 dark:text-white">{{ $riwayat->firstItem() }}</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">{{ $orderItem->firstItem() }}</span>
                         to
-                        <span class="font-semibold text-gray-900 dark:text-white">{{ $riwayat->lastItem() }}</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">{{ $orderItem->lastItem() }}</span>
                         of
-                        <span class="font-semibold text-gray-900 dark:text-white">{{ $riwayat->total() }}</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">{{ $orderItem->total() }}</span>
                     </span>
                     <div>
-                        {{ $riwayat->links('vendor.pagination.paginateAdmin') }}
+                        {{ $orderItem->links('vendor.pagination.paginateAdmin') }}
                     </div>
                 </nav>
+
             </div>
+            <button class="p-3 bg-green-400 text-white rounded-md mt-2 hover:bg-green-500">
+                <i class="fa-solid fa-file-csv"></i>
+            </button>
         </div>
         <!-- Dropdown menu -->
 
