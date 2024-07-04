@@ -55,6 +55,13 @@
                         <span class="ms-3">POS</span>
                     </a>
                 </li>
+                <li class="{{ Request::is('admin/jastip') ? 'bg-green-500 rounded-lg' : '' }}">
+                    <a href="/admin/jastip"
+                        class="{{ Request::is('admin/jastip') ? 'text-white' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white group">
+                        <i class="fa-solid fa-motorcycle"></i>
+                        <span class="ms-3">Jastip</span>
+                    </a>
+                </li>
                 <li class="{{ Request::is('admin/data-transaksi') ? 'bg-green-500 rounded-lg' : '' }}">
                     <a href="/admin/data-transaksi"
                         class="{{ Request::is('admin/data-transaksi') ? 'text-white' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white group">

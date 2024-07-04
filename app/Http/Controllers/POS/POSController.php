@@ -124,15 +124,12 @@ class POSController extends Controller
         if ($cart) {
             $cartItem = CartItem::where('cart_id', $cart->id)->get();
         }
-        if ($cartItem) {
-            $total_jumlah_harga = $cartItem->sum('total_harga');
-        } else {
-            $total_jumlah_harga = 0;
-        }
+
         $total_jumlah_harga = $cartItem->sum('total_harga');
 
         return view('admin.POS.OrderSummary', compact('user', 'cart', 'cartItem', 'total_jumlah_harga'));
     }
+
     public function orderSummarySubmit(Request $request)
     {
         $user = auth()->user();
@@ -144,10 +141,14 @@ class POSController extends Controller
         $total_jumlah_harga = $cartItem->sum('total_harga');
         // dd($total_jumlah_harga);
 
+        $randomNumber = random_int(10000000, 99999999); // Ubah rentang angka sesuai kebutuhan
+
+        // Membuat order baru
         $order = Orders::create([
             'user_id' => auth()->id(),
             'total' => $total_jumlah_harga,
-            'tatus' => 'pending',
+            'status' => 'pending',
+            'nomor_order' => $randomNumber
         ]);
 
         $jumlah_product = $cartItem->sum('jumlah');

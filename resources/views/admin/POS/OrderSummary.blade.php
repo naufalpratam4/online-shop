@@ -66,8 +66,11 @@
                                 <div class="w-full">
 
                                     <button type="submit"
-                                        class="mt-4 bg-green-500 flex w-full items-center justify-center rounded-lg bg-primary-700  px-5 py-2.5 text-sm font-medium text-white hover:bg-green-600  sm:mt-0">Send
-                                        the order</button>
+                                        class="mt-4 bg-green-500 flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-600 sm:mt-0"
+                                        {{ $cartItem->isEmpty() ? 'disabled' : '' }}>
+                                        Send the order
+                                    </button>
+
 
                                 </div>
                             </div>

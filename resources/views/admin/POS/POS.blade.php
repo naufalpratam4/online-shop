@@ -168,8 +168,13 @@
             </div>
             <div class="mt-5">
                 <a href="/admin/pos/order-summary">
-                    <button
-                        class="w-full bg-green-500 rounded-md px-4 py-2 text-white hover:bg-green-600">Checkout</button>
+                    <button class="w-full bg-green-500 rounded-md px-4 py-2 text-white hover:bg-green-600"
+                        @unless ($cartItem)
+                        disabled
+                    @endunless>
+                        Checkout
+                    </button>
+
                 </a>
             </div>
         </div>

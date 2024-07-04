@@ -3,6 +3,7 @@
 use App\Http\Controllers\auth\validateForm;
 use App\Http\Controllers\Dasboard\DashboardController;
 use App\Http\Controllers\Data_transaksi\DataTransaksiController;
+use App\Http\Controllers\Jastip\JastipController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\POS\POSController;
 use App\Http\Controllers\ProductController;
@@ -40,17 +41,17 @@ Route::get('/login-admin', function () {
     return view('admin.auth.loginUser');
 });
 
+// Route untuk login admin
 Route::post('/login-admin', [ValidateForm::class, 'loginAdmin'])->name('login.admin');
 Route::get('/register-admin', function () {
     return view('admin.auth.registerUser');
 })->name('register.admin');
-
 Route::post('/register-admin', [ValidateForm::class, 'registerAdmin'])->name('register.admin');
 
-
-Route::middleware(['Admin'])->group(function () {
-    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
-});
+// Route yang dilindungi oleh middleware admin
+// Route::middleware(['Admin'])->group(function () {
+Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware('Admin');
+// });
 // Admin produk
 Route::get('/admin/produk', [ProductController::class, 'index']);
 Route::get('/admin/produk/{nama_produk}', [ProductController::class, 'productId'])->name('admin.productId');
@@ -65,10 +66,20 @@ Route::get('/admin/pos', [POSController::class, 'index']);
 Route::get('/admin/pos/order-summary', [POSController::class, 'orderSummary']);
 Route::get('/admin/pos/struk', [POSController::class, 'Struk'])->name('admin.struk');
 Route::post('/admin/pos/order', [POSController::class, 'POSAdd'])->name('admin.posAdd');
+
 Route::post('/admin/pos/update-jumlah-produk', [POSController::class, 'updateJumlahProduk'])->name('admin.pos.updateProduk');
 Route::post('/admin/pos/order-submit', [POSController::class, 'orderSummarySubmit'])->name('admin.order.submit');
 Route::post('/admin/pos/riwayat', [POSController::class, 'riwayat'])->name('admin.order.riwayat');
 Route::delete('/admin/pos/delete-produk/{id}', [POSController::class, 'deleteOrder'])->name('admin.deleteOrder');
+
+// Admin Jastip
+Route::get('/admin/jastip', [JastipController::class, 'index'])->name('admin.jastip.index');
+
+Route::post('/admin/jastip/addPesanan', [JastipController::class, 'addPesanan'])->name('admin.jastip.addPesanan');
+Route::post('/admin/jastip/visible/{id}', [JastipController::class, 'visible'])->name('admin.jastip.visible');
+Route::post('/admin/jastip/editPesanan/{id}', [JastipController::class, 'editPesanan'])->name('admin.jastip.editPesanan');
+Route::delete('/admin/jastip/delete/{id}', [JastipController::class, 'deletePesanan'])->name('admin.jastip.deletePesanan');
+
 
 // Admin - Data Transaksi
 Route::get('/admin/data-transaksi', [DataTransaksiController::class, 'index'])->name('admin.data-transaksi');

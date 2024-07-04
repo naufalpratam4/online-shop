@@ -142,32 +142,19 @@
                     <div id="piechart"></div>
 
                     <script>
-                        // Ambil data dari PHP
-                        var labels = @json($labels);
-                        var stocks = @json($stocks);
-
                         var options = {
-                            series: stocks,
+                            series: <?php echo json_encode($stocks); ?>,
                             chart: {
-                                type: 'pie',
-                                height: '100%'
+                                type: 'polarArea',
+
                             },
-                            labels: labels,
-                            responsive: [{
-                                breakpoint: 480,
-                                options: {
-                                    chart: {
-                                        width: 280
-                                    },
-                                    legend: {
-                                        position: 'bottom'
-                                    }
-                                }
-                            }]
+                            labels: <?php echo json_encode($labels); ?>,
+                            fill: {
+                                opacity: 0.8
+                            }
                         };
 
                         var chart = new ApexCharts(document.querySelector("#piechart"), options);
-
                         chart.render();
                     </script>
 
@@ -175,78 +162,36 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-4 ">
-                <div class="col-span-2 p-4 bg-gray-50 h-full rounded-md">
+                <div class=" p-4 bg-gray-50 h-full rounded-md hover:border-2 hover:border-green-500">
                     <div id="heatmapchart"></div>
-                    <script>
-                        function generateData() {
-                            var series = [];
-                            var days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-                            var weeks = 52; // Number of weeks to display
-
-                            for (var day = 0; day < days.length; day++) {
-                                var data = [];
-                                for (var week = 0; week < weeks; week++) {
-                                    var x = 'Week ' + (week + 1);
-                                    var y = Math.floor(Math.random() * 100); // Generate random data
-                                    data.push({
-                                        x: x,
-                                        y: y
-                                    });
-                                }
-                                series.push({
-                                    name: days[day],
-                                    data: data
-                                });
-                            }
-                            return series;
-                        }
-
-                        var options = {
-                            series: generateData(),
-                            chart: {
-                                height: 450,
-                                type: 'heatmap',
-                            },
-                            dataLabels: {
-                                enabled: false
-                            },
-                            colors: ["#008FFB"], // Default blue color
-                            title: {
-                                text: 'Penjualan Harian'
-                            },
-                            xaxis: {
-                                categories: Array.from({
-                                    length: 52
-                                }, (_, i) => `Week ${i + 1}`),
-                                labels: {
-                                    rotate: -45
-                                }
-                            },
-                            yaxis: {
-                                categories: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu']
-                            },
-                            plotOptions: {
-                                heatmap: {
-                                    shadeIntensity: 0.5,
-                                    radius: 0,
-                                    useFillColorAsStroke: true,
-                                }
-                            },
-                        };
-
-                        var chart = new ApexCharts(document.querySelector("#heatmapchart"), options);
-                        chart.render();
-                    </script>
+                    <h1 class="text-2xl font-bold mb-6 text-center">Hitung Laba Kotor dan Laba Bersih</h1>
+                    <form method="POST" action="">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="revenue" class="block text-sm font-medium text-gray-700">Pendapatan:</label>
+                            <input type="number" id="revenue" name="revenue" value="{{ old('revenue') }}" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                        </div>
+                        <div class="mb-6">
+                            <label for="expenses" class="block text-sm font-medium text-gray-700">Biaya:</label>
+                            <input type="number" id="expenses" name="expenses" value="{{ old('expenses') }}" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            Hitung
+                        </button>
+                    </form>
                 </div>
-                <div class="bg-gray-50 rounded-md p-4">
-                    <div class="">
+                <div class="bg-gray-50 rounded-md p-4 hover:border-2 hover:border-green-500">
+                    <div class="flex justify-between">
+                        <div class="font-semibold text-2xl">Produk Terlaris</div>
+                        <div class="font-semibold text-2xl">Risol</div>
+                    </div>
+
+                    <div class="px-16">
                         <img class="rounded-md w-full" style="aspect-ratio: 1 / 1; " src="https://picsum.photos/1000"
                             alt="" />
-                    </div>
-                    <div class="font-semibold text-2xl">Produk Terlaris</div>
-                    <div class="flex justify-between items-center">
-                        <div class="font-bold text-xl">Risol</div>
-                        <div class="font-bold">Produk Terjual : 2000 pcs</div>
                     </div>
                 </div>
             </div>

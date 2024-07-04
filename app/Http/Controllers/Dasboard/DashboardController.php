@@ -26,6 +26,7 @@ class DashboardController extends Controller
         $stocks = $stokproduk->pluck('stock')->toArray();
 
 
+
         // Loop untuk bulan Januari (bulan ke-1) hingga Desember (bulan ke-12)
         for ($month = 1; $month <= 12; $month++) {
             // Query untuk mengambil order berdasarkan bulan
