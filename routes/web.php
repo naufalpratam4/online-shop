@@ -48,9 +48,7 @@ Route::get('/register-admin', function () {
 })->name('register.admin');
 Route::post('/register-admin', [ValidateForm::class, 'registerAdmin'])->name('register.admin');
 
-// Route yang dilindungi oleh middleware admin
-// Route::middleware(['Admin'])->group(function () {
-// });
+
 Route::prefix('admin')->group(function () {
     Route::middleware(['Admin'])->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
