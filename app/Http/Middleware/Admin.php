@@ -14,11 +14,12 @@ class Admin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role == 'Admin') {
-            return $next($request);
-        };
-        return redirect('login-admin')->with('error', 'Anda harus login terlebih dahulu');
+        if (!Auth::check() || !Auth::user()->role == 'Admin') {
+            return redirect('/login-admin'); // Redirect to admin login page
+        }
+
+        return $next($request);
     }
 }

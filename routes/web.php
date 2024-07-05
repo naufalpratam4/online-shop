@@ -50,42 +50,47 @@ Route::post('/register-admin', [ValidateForm::class, 'registerAdmin'])->name('re
 
 // Route yang dilindungi oleh middleware admin
 // Route::middleware(['Admin'])->group(function () {
-Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard')->middleware('Admin');
 // });
-// Admin produk
-Route::get('/admin/produk', [ProductController::class, 'index']);
-Route::get('/admin/produk/{nama_produk}', [ProductController::class, 'productId'])->name('admin.productId');
-Route::post('/admin/produk/post', [ProductController::class, 'addProduk'])->name('admin.add.produk');
-Route::post('/admin/produk/visible/{id}', [ProductController::class, 'visible'])->name('admin.produk.visible');
-Route::post('/admin/produk/edit/{id}', [ProductController::class, 'updateProduct'])->name('admin.produk.edit');
-Route::post('/admin/produk-kategori/post', [KategoriController::class, 'kategoriPost'])->name('admin.add.kategori');
-Route::delete('/admin/produk/delete/{id}', [ProductController::class, 'deleteProduct'])->name('admin.delete.produk');
+Route::prefix('admin')->group(function () {
+    Route::middleware(['Admin'])->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-// Admin POS
-Route::get('/admin/pos', [POSController::class, 'index']);
-Route::get('/admin/pos/order-summary', [POSController::class, 'orderSummary']);
-Route::get('/admin/pos/struk', [POSController::class, 'Struk'])->name('admin.struk');
-Route::post('/admin/pos/order', [POSController::class, 'POSAdd'])->name('admin.posAdd');
+        // Admin produk
+        Route::get('produk', [ProductController::class, 'index']);
+        Route::get('produk/{nama_produk}', [ProductController::class, 'productId'])->name('admin.productId');
+        Route::post('produk/post', [ProductController::class, 'addProduk'])->name('admin.add.produk');
+        Route::post('produk/visible/{id}', [ProductController::class, 'visible'])->name('admin.produk.visible');
+        Route::post('produk/edit/{id}', [ProductController::class, 'updateProduct'])->name('admin.produk.edit');
+        Route::post('produk-kategori/post', [KategoriController::class, 'kategoriPost'])->name('admin.add.kategori');
+        Route::delete('produk/delete/{id}', [ProductController::class, 'deleteProduct'])->name('admin.delete.produk');
 
-Route::post('/admin/pos/update-jumlah-produk', [POSController::class, 'updateJumlahProduk'])->name('admin.pos.updateProduk');
-Route::post('/admin/pos/order-submit', [POSController::class, 'orderSummarySubmit'])->name('admin.order.submit');
-Route::post('/admin/pos/riwayat', [POSController::class, 'riwayat'])->name('admin.order.riwayat');
-Route::delete('/admin/pos/delete-produk/{id}', [POSController::class, 'deleteOrder'])->name('admin.deleteOrder');
+        // Admin POS
+        Route::get('pos', [POSController::class, 'index']);
+        Route::get('pos/order-summary', [POSController::class, 'orderSummary']);
+        Route::get('pos/struk', [POSController::class, 'Struk'])->name('admin.struk');
+        Route::post('pos/order', [POSController::class, 'POSAdd'])->name('admin.posAdd');
 
-// Admin Jastip
-Route::get('/admin/jastip', [JastipController::class, 'index'])->name('admin.jastip.index');
+        Route::post('pos/update-jumlah-produk', [POSController::class, 'updateJumlahProduk'])->name('admin.pos.updateProduk');
+        Route::post('pos/order-submit', [POSController::class, 'orderSummarySubmit'])->name('admin.order.submit');
+        Route::post('pos/riwayat', [POSController::class, 'riwayat'])->name('admin.order.riwayat');
+        Route::delete('pos/delete-produk/{id}', [POSController::class, 'deleteOrder'])->name('admin.deleteOrder');
 
-Route::post('/admin/jastip/addPesanan', [JastipController::class, 'addPesanan'])->name('admin.jastip.addPesanan');
-Route::post('/admin/jastip/visible/{id}', [JastipController::class, 'visible'])->name('admin.jastip.visible');
-Route::post('/admin/jastip/editPesanan/{id}', [JastipController::class, 'editPesanan'])->name('admin.jastip.editPesanan');
-Route::delete('/admin/jastip/delete/{id}', [JastipController::class, 'deletePesanan'])->name('admin.jastip.deletePesanan');
+        // Admin Jastip
+        Route::get('jastip', [JastipController::class, 'index'])->name('admin.jastip.index');
+
+        Route::post('jastip/addPesanan', [JastipController::class, 'addPesanan'])->name('admin.jastip.addPesanan');
+        Route::post('jastip/visible/{id}', [JastipController::class, 'visible'])->name('admin.jastip.visible');
+        Route::post('jastip/editPesanan/{id}', [JastipController::class, 'editPesanan'])->name('admin.jastip.editPesanan');
+        Route::delete('jastip/delete/{id}', [JastipController::class, 'deletePesanan'])->name('admin.jastip.deletePesanan');
 
 
-// Admin - Data Transaksi
-Route::get('/admin/data-transaksi', [DataTransaksiController::class, 'index'])->name('admin.data-transaksi');
-Route::get('/admin/data-transaksi/detail/{oder_id}', [DataTransaksiController::class, 'detailTransaksi'])->name('admin.data-transaksi.detail');
-Route::get('/admin/data-transaksi/detail/{order_id}/export', [DataTransaksiController::class, 'exportExcel'])->name('orders.data-transaksi.detail.export');
-Route::delete('/admin/data-transaksi/delete/{order_id}', [DataTransaksiController::class, 'deleteDataTransaksi'])->name('admin.data-transaksi.delete');
+        // Admin - Data Transaksi
+        Route::get('data-transaksi', [DataTransaksiController::class, 'index'])->name('admin.data-transaksi');
+        Route::get('data-transaksi/detail/{oder_id}', [DataTransaksiController::class, 'detailTransaksi'])->name('admin.data-transaksi.detail');
+        Route::get('data-transaksi/detail/{order_id}/export', [DataTransaksiController::class, 'exportExcel'])->name('orders.data-transaksi.detail.export');
+        Route::delete('data-transaksi/delete/{order_id}', [DataTransaksiController::class, 'deleteDataTransaksi'])->name('admin.data-transaksi.delete');
 
-// admin logout
-Route::post('/admin-logout', [validateForm::class, 'logoutAdmin'])->name('admin.logout');
+        // admin logout
+        Route::post('/admin-logout', [validateForm::class, 'logoutAdmin'])->name('admin.logout');
+    });
+});
