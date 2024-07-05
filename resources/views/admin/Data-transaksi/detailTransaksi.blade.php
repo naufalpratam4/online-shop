@@ -141,7 +141,7 @@
                                 <tr class="border-b text-center">
                                     <th scope="row"
                                         class="text-center px-4 py-3 font-medium text-blue-500 whitespace-nowrap">
-                                        {{ $item['order_id'] }}
+                                        {{ $item->order->nomor_order }}
                                     </th>
                                     <td class="px-4 py-3">{{ $item->product->nama_produk }}</td>
                                     <td class="px-4 py-3">{{ $item['created_at']->format('d-m-Y') }}</td>

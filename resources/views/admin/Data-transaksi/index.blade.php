@@ -151,7 +151,7 @@
                                 <tr class="border-b text-center">
                                     <th scope="row"
                                         class="text-center px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
-                                        {{ $item['order_id'] }}</th>
+                                        {{ $item['nomor_order'] }}</th>
                                     <td class="px-4 py-3">{{ $item['created_at'] }}</td>
                                     <td class="px-4 py-3">{{ $item['user_id'] }}</td>
                                     <td class="px-4 py-3">@rupiah($item['total'])</td>

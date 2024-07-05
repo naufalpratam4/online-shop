@@ -30,10 +30,12 @@ class DataTransaksiController extends Controller
             $merged = [
                 'id' => $group->first()->id,
                 'order_id' => $group->first()->order_id,
+                'nomor_order' => $group->first()->order->nomor_order,
                 'user_id' => $group->first()->user_id,
                 'created_at' => $group->first()->created_at->format('d-m-Y'),
                 'total' => $group->first()->order->total,
             ];
+            // dd($merged);
             return $merged;
         });
 
@@ -57,7 +59,7 @@ class DataTransaksiController extends Controller
         $perPage = $request->input('per_page', session('per_page', 5));
         session(['per_page' => $perPage]); // Simpan dalam session
 
-        $orderItem = order_item::with('product')->where('order_id', $order_id)->paginate($perPage);
+        $orderItem = order_item::with('order')->with('product')->where('order_id', $order_id)->paginate($perPage);
 
         return view('admin.Data-transaksi.detailTransaksi', compact('orderItem', 'user'));
     }
