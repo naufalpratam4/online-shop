@@ -1,6 +1,6 @@
 <div id="editModal-{{ $item->id }}" tabindex="-1" aria-hidden="true"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full">
+    <div class="relative p-4 w-full max-w-2xl md:max-w-3xl h-full md:h-auto">
         <!-- Modal content -->
         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
             <!-- Modal header -->
@@ -23,8 +23,8 @@
             <!-- Modal body -->
             <form action="{{ route('admin.jastip.editPesanan', $item->id) }}" method="POST">
                 @csrf
-                <div class="grid gap-4 mb-4">
-                    <div class="grid grid-cols-2 gap-2">
+                <div class="grid gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="first_name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
@@ -63,50 +63,42 @@
                             placeholder="Tulis Kategori" />
                     </div>
 
-                    <script>
-                        function toggleDiv() {
-                            var category = document.getElementById("category").value;
-                            var nameDiv = document.getElementById("kategoriJastip");
-                            nameDiv.style.display = (category === "dll") ? "block" : "none";
-                        }
-                    </script>
-
-                    <div class="flex justify-between">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="pengantaran"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Pengantaran
                                 Jastip</label>
+                            <div class="flex gap-2">
+                                <div class="items-center">
+                                    <input id="default-radio-1" type="radio" name="pengantaran" value="Diantar"
+                                        {{ $item->pengantaran === 'Diantar' ? 'checked' : '' }}
+                                        class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="default-radio-1"
+                                        class="text-sm font-medium text-gray-900 dark:text-gray-300">Diantar Ke
+                                        Rumah</label>
+                                </div>
+                                <div class="items-center">
+                                    <input id="default-radio-2" type="radio" name="pengantaran" value="COD"
+                                        {{ $item->pengantaran === 'COD' ? 'checked' : '' }}
+                                        class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="default-radio-2"
+                                        class="text-sm font-medium text-gray-900 dark:text-gray-300">COD</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex gap-2">
-                            <div class="items-center">
-                                <input id="default-radio-1" type="radio" name="pengantaran" value="Diantar"
-                                    {{ $item->pengantaran === 'Diantar' ? 'checked' : '' }}
-                                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="default-radio-1"
-                                    class="text-sm font-medium text-gray-900 dark:text-gray-300">Diantar Ke
-                                    Rumah</label>
-                            </div>
-                            <div class="items-center">
-                                <input id="default-radio-2" type="radio" name="pengantaran" value="COD"
-                                    {{ $item->pengantaran === 'COD' ? 'checked' : '' }}
-                                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="default-radio-2"
-                                    class="text-sm font-medium text-gray-900 dark:text-gray-300">COD</label>
-                            </div>
+                        <div>
+                            <label for="alamat"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                            <input type="text" id="alamat" name="alamat" value="{{ $item->alamat }}" required
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                placeholder="Tulis Alamat Customers" />
                         </div>
                     </div>
 
                     <div>
-                        <label for="alamat"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                        <input type="text" id="alamat" name="alamat" value="{{ $item->alamat }}" required
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                            placeholder="Tulis Alamat Customers" />
-                    </div>
-
-                    <div class="sm:col-span-2">
                         <label for="description"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deskripsi
+                            Pesanan</label>
                         <textarea id="description" name="deskripsi" rows="4"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                             placeholder="Tulis apa saja pesanannya" required>{{ $item->deskripsi }}</textarea>
@@ -121,10 +113,10 @@
                             placeholder="Total Harga yang perlu dibayarkan" />
                     </div>
                 </div>
-                <hr class="pb-4">
+                <hr class="my-4">
                 <div class="flex justify-end">
                     <button type="submit"
-                        class="text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                        class="text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -135,7 +127,6 @@
                     </button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

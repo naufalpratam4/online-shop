@@ -153,7 +153,7 @@
                                         class="text-center px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                         {{ $item['nomor_order'] }}</th>
                                     <td class="px-4 py-3">{{ $item['created_at'] }}</td>
-                                    <td class="px-4 py-3">{{ $item['user_id'] }}</td>
+                                    <td class="px-4 py-3">{{ $item['user_name'] }}</td>
                                     <td class="px-4 py-3">@rupiah($item['total'])</td>
                                     <td class="px-4 py-3 ">
                                         <a href="{{ route('admin.data-transaksi.detail', $item['order_id']) }}">
@@ -188,6 +188,12 @@
                     </div>
                 </nav>
             </div>
+            <a href="{{ route('admin.transaksi.export') }}">
+                <button
+                    class="p-3 bg-green-400 text-white rounded-md mt-2 hover:bg-green-500 focus:ring-4 focus:ring-green-300">
+                    <i class="fa-solid fa-file-csv"></i>
+                </button>
+            </a>
         </div>
         <!-- Dropdown menu -->
 

@@ -87,7 +87,7 @@ Route::prefix('admin')->group(function () {
         Route::get('data-transaksi/detail/{oder_id}', [DataTransaksiController::class, 'detailTransaksi'])->name('admin.data-transaksi.detail');
         Route::get('data-transaksi/detail/{order_id}/export', [DataTransaksiController::class, 'exportExcel'])->name('orders.data-transaksi.detail.export');
         Route::delete('data-transaksi/delete/{order_id}', [DataTransaksiController::class, 'deleteDataTransaksi'])->name('admin.data-transaksi.delete');
-
+        Route::get('data-transaksi/export-excel', [DataTransaksiController::class, 'downloadTransaksi'])->name('admin.transaksi.export');
         // admin logout
         Route::post('/admin-logout', [validateForm::class, 'logoutAdmin'])->name('admin.logout');
     });

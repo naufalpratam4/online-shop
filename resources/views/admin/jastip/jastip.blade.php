@@ -134,7 +134,7 @@
 
                         </div>
                     </div>
-                    <div class="z-50 ">
+                    <div class=" ">
                         <button id="dropdownCheckboxButton" data-dropdown-toggle="dropdownDefaultCheckbox"
                             class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm py-2 px-4 text-center inline-flex items-center"
                             type="button">Filter <i class="fa-solid fa-filter ps-2"></i>
@@ -236,7 +236,7 @@
         <!-- Dropdown menu -->
         <!-- Dropdown menu -->
         <div id="dropdownDefaultCheckbox"
-            class="z-50  hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
+            class=" hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600">
             <form id="filterForm" method="GET" action="{{ route('admin.jastip.index') }}">
                 <ul class="p-3 space-y-3 text-sm text-gray-700 dark:text-gray-200"
                     aria-labelledby="dropdownCheckboxButton">

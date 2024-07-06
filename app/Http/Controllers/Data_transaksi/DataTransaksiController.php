@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Data_transaksi;
 
+use App\Exports\DataTransaksiExport;
 use App\Models\Orders;
 use App\Models\Riwayat;
 use App\Models\order_item;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DataTransaksiController extends Controller
 {
@@ -26,18 +28,18 @@ class DataTransaksiController extends Controller
         $riwayatGrouped = Riwayat::with('order')->orderBy('order_id')->get()->groupBy('order_id');
 
         $riwayatMerged = $riwayatGrouped->map(function ($group) {
-            // Proses penggabungan data di sini
             $merged = [
                 'id' => $group->first()->id,
                 'order_id' => $group->first()->order_id,
                 'nomor_order' => $group->first()->order->nomor_order,
                 'user_id' => $group->first()->user_id,
+                'user_name' => $group->first()->user->name, // Ambil nama pengguna dari relasi user
                 'created_at' => $group->first()->created_at->format('d-m-Y'),
                 'total' => $group->first()->order->total,
             ];
-            // dd($merged);
             return $merged;
         });
+
 
         // Ubah koleksi menjadi array agar bisa di slice untuk paginasi
         $riwayatArray = $riwayatMerged->values()->toArray();
@@ -76,5 +78,11 @@ class DataTransaksiController extends Controller
             return redirect()->back()->with('success', 'Berhasil menghapus data transaksi');
         }
         return redirect()->back()->with('error', 'Gagal menghapus data transaksi');
+    }
+
+    public function downloadTransaksi()
+    {
+
+        return Excel::download(new DataTransaksiExport, 'Data-Transaksi.xlsx');
     }
 }
