@@ -3,7 +3,7 @@
     <div style="height: 100vh;">
         <!-- https://play.tailwindcss.com/MIwj5Sp9pw -->
         <div class="py-16 pt-36">
-            <form action="{{ route('login.admin') }}" method="POST">
+            <form action="{{ route('login.user') }}" method="POST">
                 @csrf
                 <div class="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-2xl lg:max-w-4xl">
                     <div class="hidden lg:block lg:w-1/2 bg-cover"

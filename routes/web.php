@@ -1,40 +1,45 @@
 <?php
 
+
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\validateForm;
-use App\Http\Controllers\Dasboard\DashboardController;
-use App\Http\Controllers\Data_transaksi\DataTransaksiController;
-use App\Http\Controllers\Jastip\JastipController;
-use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\POS\POSController;
 use App\Http\Controllers\ProductController;
-use App\Http\Middleware\Admin;
-use App\Models\Kategori;
-use App\Models\Product;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KategoriController;
 
-Route::get('/', function () {
-    $produk = Product::where('visible', 1)->get();
-    return view('user.landingpage', compact('produk'));
-});
-Route::get('/cart', function () {
-    return view('user.cart.cart');
-});
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Jastip\JastipController;
+use App\Http\Controllers\Dasboard\DashboardController;
+use App\Http\Controllers\Data_transaksi\DataTransaksiController;
+use App\Http\Controllers\User\CartUserController;
+
+Route::get('/', [UserController::class, 'index']);
+
 Route::get('product-detail', function () {
     return view('user.product.productDetail');
-});
-Route::get('/user-detail', function () {
-    return view('user.profile.userProfile');
 });
 
 Route::get('/login', function () {
     return view('user.auth.loginUser');
 });
-Route::post('/login', [validateForm::class, 'login'])->name('login.user');
 Route::get('/register', function () {
     return view('user.auth.registerUser');
 });
+Route::post('/login', [validateForm::class, 'login'])->name('login.user');
 Route::post('/register', [validateForm::class, 'registerUser'])->name('register.user');
 
+
+// User after login
+Route::middleware(['User'])->group(function () {
+    Route::get('/cart', [CartUserController::class, 'index']);
+    Route::get('/user-detail', [UserController::class, 'userDetail']);
+    Route::get('/myorder', [UserController::class, 'myOrder']);
+
+    Route::post('/order', [CartUserController::class, 'POSAdd'])->name('user.posAdd');
+    Route::post('/order-min', [CartUserController::class, 'POSMin'])->name('user.posMin');
+    Route::delete('/order/delete/{id}', [CartUserController::class, 'deleteOrder'])->name('order.delete');
+    Route::post('/logout', [validateForm::class, 'logoutUser'])->name('user.logout');
+});
 
 // admin
 Route::get('/login-admin', function () {

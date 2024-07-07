@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('no_hp')->nullable();
             $table->text('alamat')->nullable();
             $table->enum('role', ['Admin', 'User'])->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->string('jenis_kelamin')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

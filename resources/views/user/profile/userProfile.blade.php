@@ -1,6 +1,7 @@
 @extends('welcome')
 @section('content')
-    <div class="mt-36 mx-auto w-8/12 font-bold text-3xl pb-2">User Profile</div>
+    @include('template.user.navbarUser')
+    <div class="mt-24 mx-auto w-8/12 font-bold text-3xl pb-2">User Profile</div>
     <div class="flex mx-auto pt-2  w-8/12 border p-4 shadow-lg rounded-lg ">
         <div class="grid md:grid-cols-3  w-full pt-2">
             <div class=" p-3 rounded-lg border-2  md:ms-20 w-8/12">
@@ -38,29 +39,66 @@
                 <div class="font-semibold text-xl mb-3">Ubah Data Diri</div>
                 <div class="flex items-center mb-3">
                     <div class="w-40">Nama</div>
-                    <div>Nama Lengkap <a href="" class="text-green-500">Edit</a></div>
+                    <div>{{ $user->name }}
+                        <button type="button" id="updateProductButton-{{ $user->id }}"
+                            data-modal-target="updateProductModal-{{ $user->id }}"
+                            data-modal-toggle="updateProductModal-{{ $user->id }}" class="text-green-500">
+                            Edit
+                        </button>
+                    </div>
                 </div>
                 <div class="flex items-center mb-3">
                     <div class="w-40">Tanggal Lahir</div>
-                    <div>Tanggal Lahir <a href="" class="text-green-500">Edit</a></div>
+                    <div>Tanggal Lahir
+                        <button type="button" id="updateProductButton-{{ $user->id }}"
+                            data-modal-target="updateTglLahirModal-{{ $user->id }}"
+                            data-modal-toggle="updateTglLahirModal-{{ $user->id }}" class="text-green-500">
+                            Edit
+                        </button>
+                    </div>
                 </div>
                 <div class="flex items-center mb-3">
                     <div class="w-40">Jenis Kelamin</div>
-                    <div>Jenis Kelamin <a href="" class="text-green-500">Edit</a></div>
+                    <div>Jenis Kelamin <button type="button" id="updateProductButton-{{ $user->id }}"
+                            data-modal-target="updateJenisKelaminModal-{{ $user->id }}"
+                            data-modal-toggle="updateJenisKelaminModal-{{ $user->id }}" class="text-green-500">
+                            Edit
+                        </button></div>
                 </div>
                 <div class="flex items-center mb-3">
                     <div class="w-40">Email</div>
-                    <div>Email@gmail.com <a href="" class="text-green-500">Edit</a></div>
+                    <div>{{ $user->email }}
+                        <button type="button" id="updateProductButton-{{ $user->id }}"
+                            data-modal-target="updateEmailModal-{{ $user->id }}"
+                            data-modal-toggle="updateEmailModal-{{ $user->id }}" class="text-green-500">
+                            Edit
+                        </button>
+                    </div>
                 </div>
                 <div class="flex items-center mb-3">
                     <div class="w-40">Nomor HP</div>
-                    <div>08888 <a href="" class="text-green-500">Edit</a></div>
+                    <div>{{ $user->no_hp }}
+                        <button type="button" id="updateProductButton-{{ $user->id }}"
+                            data-modal-target="updateNoHpModal-{{ $user->id }}"
+                            data-modal-toggle="updateNoHpModal-{{ $user->id }}" class="text-green-500">
+                            Edit
+                        </button>
+                    </div>
                 </div>
                 <div class="flex items-center mb-3">
                     <div class="w-40">Password</div>
-                    <div> <a href="" class="text-green-500">Ubah Kata Sandi</a></div>
+                    <div> <button type="button" id="updateProductButton-{{ $user->id }}"
+                            data-modal-target="updatePasswordModal-{{ $user->id }}"
+                            data-modal-toggle="updatePasswordModal-{{ $user->id }}" class="text-green-500">
+                            Ubah kata sandi
+                        </button></div>
                 </div>
-
+                @include('user.profile.modal.modalEditTanggal')
+                @include('user.profile.modal.modalEdit')
+                @include('user.profile.modal.modalEditJenisKelamin')
+                @include('user.profile.modal.modalEmail')
+                @include('user.profile.modal.modalNoHp')
+                @include('user.profile.modal.modalPassword')
             </div>
         </div>
     </div>
