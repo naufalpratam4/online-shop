@@ -4,7 +4,7 @@
         @include('template.alerts.success')
     @endif
     @if (session('error'))
-        <div>{{ session('error') }}</div>
+        @include('template.alerts.errors')
     @endif
 
     <div class="grid md:grid-cols-3 gap-2  ">

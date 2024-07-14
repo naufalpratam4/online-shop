@@ -94,12 +94,19 @@ class POSController extends Controller
         $product_id = $request->input('product_id');
         $jumlah = $request->input('jumlah');
 
+        // cek product
         $product = Product::where('id', $product_id)->first();
+        // dd($product);
+
         // Cari produk berdasarkan product_id
         $cartItem = CartItem::where('product_id', $product_id)->where('cart_id', $cart->id)
             ->first();
         // untuk menjumlah harga produk
         $total_jumlah_harga =   $product->harga * $jumlah;
+
+        if ($jumlah > $product->stock) {
+            return redirect()->back()->with('error', "Stok habis/tersisa {$product->stock} stok");
+        }
 
 
         if ($cartItem) {
