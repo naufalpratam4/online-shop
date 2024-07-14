@@ -214,10 +214,16 @@
                                 </dd>
                             </dl>
                         </div>
-
-                        <a href="/invoice"
-                            class="flex w-full items-center justify-center rounded-lg bg-yellow-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-yellow-800 focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Proceed
-                            to Checkout</a>
+                        @if ($total_jumlah_harga == 1000)
+                            <a href="/order">
+                                <button disabled
+                                    class="flex mt-4 w-full items-center justify-center rounded-lg bg-gray-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Proceed
+                                    to Checkout</button></a>
+                        @else
+                            <a href="/order"
+                                class="flex w-full items-center justify-center rounded-lg bg-yellow-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-yellow-800 focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">Proceed
+                                to Checkout</a>
+                        @endif
 
                         <div class="flex items-center justify-center gap-2">
                             <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> or </span>

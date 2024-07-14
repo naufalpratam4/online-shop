@@ -31,14 +31,13 @@ Route::post('/register', [validateForm::class, 'registerUser'])->name('register.
 // User after login
 Route::middleware(['User'])->group(function () {
     Route::get('/cart', [CartUserController::class, 'index']);
-    Route::get('/invoice', function () {
-        return view('user.cart.invoice');
-    })->name('user.invoice');
+    Route::get('/order', [CartUserController::class, 'order'])->name('user.order');
     Route::get('/user-detail', [UserController::class, 'userDetail']);
     Route::get('/myorder', [UserController::class, 'myOrder']);
 
     Route::post('/order', [CartUserController::class, 'POSAdd'])->name('user.posAdd');
     Route::post('/order-min', [CartUserController::class, 'POSMin'])->name('user.posMin');
+    Route::post('/order/checkout', [CartUserController::class, 'checkout'])->name('user.order.checkout');
     Route::delete('/order/delete/{id}', [CartUserController::class, 'deleteOrder'])->name('order.delete');
     Route::post('/logout', [validateForm::class, 'logoutUser'])->name('user.logout');
 });

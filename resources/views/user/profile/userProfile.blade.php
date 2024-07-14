@@ -1,6 +1,7 @@
 @extends('welcome')
 @section('content')
     @include('template.user.navbarUser')
+
     <div class="mt-24 mx-auto w-8/12 font-bold text-3xl pb-2">User Profile</div>
     <div class="flex mx-auto pt-2  w-8/12 border p-4 shadow-lg rounded-lg ">
         <div class="grid md:grid-cols-3  w-full pt-2">
@@ -76,6 +77,22 @@
                     </div>
                 </div>
                 <div class="flex items-center mb-3">
+                    <div class="w-40">Alamat</div>
+                    <div>{{ $user->alamat }}
+                        <button type="button" id="updateProductButton-{{ $user->id }}"
+                            data-modal-target="updateAlamatModal-{{ $user->id }}"
+                            data-modal-toggle="updateAlamatModal-{{ $user->id }}" class="text-green-500">
+                            Edit
+                        </button>
+
+                        @if (session('error'))
+                            <p class="text-red-500">
+                                {{ session('error') }}
+                            </p>
+                        @endif
+                    </div>
+                </div>
+                <div class="flex items-center mb-3">
                     <div class="w-40">Nomor HP</div>
                     <div>{{ $user->no_hp }}
                         <button type="button" id="updateProductButton-{{ $user->id }}"
@@ -99,6 +116,7 @@
                 @include('user.profile.modal.modalEmail')
                 @include('user.profile.modal.modalNoHp')
                 @include('user.profile.modal.modalPassword')
+                @include('user.profile.modal.modalAlamat')
             </div>
         </div>
     </div>

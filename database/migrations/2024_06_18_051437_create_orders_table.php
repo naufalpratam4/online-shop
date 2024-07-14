@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('user_id')->constrained('users')->onDelete('cascade');
             $table->decimal('total', 15, 2);
             $table->string('status')->default('pending');
-            $table->bigInteger('nomor_order')->unique();
+            $table->string('nomor_order')->unique();
             $table->timestamps();
         });
     }
