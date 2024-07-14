@@ -20,7 +20,7 @@ class DataTransaksiExport implements FromCollection, WithHeadings, WithMapping
 
         $riwayatMerged = $riwayatGrouped->map(function ($group, $index) {
             return [
-                'id' => $index + 1 - 1, // Nomor urut data dimulai dari 1 (indeks + 1)
+
                 'nomor_order' => $group->first()->order->nomor_order,
                 'user_name' => $group->first()->user->name,
                 'created_at' => $group->first()->created_at->format('d-m-Y'),
@@ -38,9 +38,10 @@ class DataTransaksiExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
+
             'Nomor Order',
             'User Name',
-            'Created At',
+            'Tanggal',
             'Total',
         ];
     }
@@ -48,6 +49,7 @@ class DataTransaksiExport implements FromCollection, WithHeadings, WithMapping
     public function map($row): array
     {
         return [
+
             $row['nomor_order'],
             $row['user_name'],
             $row['created_at'],

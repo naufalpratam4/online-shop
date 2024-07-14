@@ -17,8 +17,8 @@ class CartUserController extends Controller
         $product = Product::where('visible', 1)->get();
 
         // $orders = OrderAdmin::where('admin_id', $user->id)->where('status', 'Belum Selesai')->get();
-        $cartNotif = $user ? CartItem::where('cart_id', $user->id)->count() : '0';
         $cart = Cart::where('user_id', $user->id)->first();
+        $cartNotif = $user ? CartItem::where('cart_id', $cart->id)->count() : '0';
         $cartItem = collect();
         if ($cart) {
             $cartItem = CartItem::where('cart_id', $cart->id)->get();
@@ -111,8 +111,15 @@ class CartUserController extends Controller
 
         if ($cartItem) {
             // Produk sudah ada dalam keranjang, perbarui jumlah
-            $cartItem->jumlah -= $request->input('jumlah', 1); // default jumlah to 1 if not provided
-            $cartItem->total_harga -= $product->harga;
+            $newJumlah = $cartItem->jumlah - $request->input('jumlah', 1); // default jumlah to 1 if not provided
+            $newTotalHarga = $newJumlah * $product->harga;
+
+            if ($newJumlah < 0 || $newTotalHarga < 0) {
+                return redirect()->back()->withErrors(['error' => 'Jumlah tidak boleh kurang dari 0']);
+            }
+
+            $cartItem->jumlah = $newJumlah;
+            $cartItem->total_harga = $newTotalHarga;
             $cartItem->updated_at = now();
             $cartItem->save();
         } else {
@@ -123,10 +130,13 @@ class CartUserController extends Controller
                 'jumlah' => $request->input('jumlah', 1), // default jumlah to 1 if not provided
                 'total_harga' => $product->harga * $request->input('jumlah', 1),
             ];
-            // Buat item keranjang baru
+
+            if ($data['jumlah'] < 0 || $data['total_harga'] < 0) {
+                return redirect()->back()->withErrors(['error' => 'Jumlah atau total harga tidak boleh kurang dari 0']);
+            }
+
             CartItem::create($data);
         }
-
 
         return redirect()->back()->with('success', 'Berhasil menambahkan ke keranjang');
     }

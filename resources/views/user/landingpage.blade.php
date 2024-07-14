@@ -8,5 +8,6 @@
     @include('user.jumbotron')
     @include('user.hero')
 
-    <div class="pt-3 px-2">@include('user.produk')</div>
+    <div class="pt-3">@include('user.produk')</div>
+    @include('template.footer.footer')
 @endsection

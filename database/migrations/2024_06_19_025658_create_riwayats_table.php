@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('riwayats', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('order_id')->constrained()->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->constrained('users')->onDelete('cascade');
+            $table->uuid('order_id')->constrained('orders')->onDelete('cascade');
             $table->string('action');
             $table->timestamps();
         });

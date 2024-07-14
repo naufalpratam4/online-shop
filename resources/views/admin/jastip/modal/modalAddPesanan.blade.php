@@ -34,25 +34,24 @@
             <!-- Modal body -->
             <form action="{{ route('admin.jastip.addPesanan') }}" method="POST">
                 @csrf
-                <div class="grid gap-4 mb-4 ">
-                    <div class="grid grid-cols-2 gap-2">
-                        <div>
-                            <label for="nama_cus"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
-                                Customers</label>
-                            <input type="text" id="nama_cus" name="nama_cus"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                                placeholder="Tulis Nama Customers" required />
-                        </div>
-                        <div>
-                            <label for="no_wa"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor WA
-                                Customers</label>
-                            <input type="number" id="no_wa" name="no_wa"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                                placeholder="Tulis Nomor Customers" required />
-                        </div>
+                <div class="grid grid-cols-2 gap-4 mb-4 ">
+
+                    <div>
+                        <label for="nama_cus" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                            Customers</label>
+                        <input type="text" id="nama_cus" name="nama_cus"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                            placeholder="Tulis Nama Customers" required />
                     </div>
+                    <div>
+                        <label for="no_wa" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
+                            WA
+                            Customers</label>
+                        <input type="number" id="no_wa" name="no_wa"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                            placeholder="Tulis Nomor Customers" required />
+                    </div>
+
 
                     <div>
                         <label for="category"
@@ -73,13 +72,13 @@
                             placeholder="Tulis Kategori" />
                     </div>
 
-                    <div class="flex justify-between ">
+                    <div class=" ">
                         <div>
                             <label for="pengantaran"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pilih Pengantaran
                                 Jastip</label>
                         </div>
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 " style="padding-top: 5px">
                             <div class=" items-center">
                                 <input id="default-radio-1" type="radio" value="Diantar" name="pengantaran"
                                     class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -95,7 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="col-span-2">
                         <label for="alamat"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
                         <input type="text" id="alamat" name="alamat"
@@ -110,7 +109,7 @@
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                             placeholder="Tulis apa saja pesanannya" required></textarea>
                     </div>
-                    <div>
+                    <div class="col-span-2">
                         <label for="total_harga"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total Harga</label>
                         <input type="text" id="total_harga" name="total_harga"

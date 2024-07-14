@@ -146,6 +146,7 @@
                             series: <?php echo json_encode($stocks); ?>,
                             chart: {
                                 type: 'polarArea',
+                                height: '100%'
 
                             },
                             labels: <?php echo json_encode($labels); ?>,
@@ -165,23 +166,39 @@
                 <div class=" p-4 bg-gray-50 h-full rounded-md hover:border-2 hover:border-green-500">
                     <div id="heatmapchart"></div>
                     <h1 class="text-2xl font-bold mb-6 text-center">Hitung Laba Kotor dan Laba Bersih</h1>
-                    <form method="POST" action="">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="revenue" class="block text-sm font-medium text-gray-700">Pendapatan:</label>
-                            <input type="number" id="revenue" name="revenue" value="{{ old('revenue') }}" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-                        </div>
-                        <div class="mb-6">
-                            <label for="expenses" class="block text-sm font-medium text-gray-700">Biaya:</label>
-                            <input type="number" id="expenses" name="expenses" value="{{ old('expenses') }}" required
-                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-                        </div>
-                        <button type="submit"
-                            class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            Hitung
-                        </button>
-                    </form>
+
+                    @csrf
+                    <div class="mb-4">
+                        <label for="revenue" class="block text-sm font-medium text-gray-700">Pendapatan:</label>
+                        <input type="number" id="revenue" name="revenue" value="{{ old('revenue') }}" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                    </div>
+                    <div class="mb-6">
+                        <label for="expenses" class="block text-sm font-medium text-gray-700">Biaya:</label>
+                        <input type="number" id="expenses" name="expenses" value="{{ old('expenses') }}" required
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
+                    </div>
+                    <button type="button" onclick="calculateProfit()"
+                        class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Hitung
+                    </button>
+
+                    <div class="result" id="result"></div>
+
+                    <script>
+                        function calculateProfit() {
+                            // Get the values from the input fields
+                            const revenue = parseFloat(document.getElementById('revenue').value);
+                            const expenses = parseFloat(document.getElementById('expenses').value);
+
+                            // Calculate the profit
+                            const profit = revenue - expenses;
+
+                            // Display the result
+                            document.getElementById('result').textContent = `Keuntungan: Rp ${profit}`;
+                        }
+                    </script>
+
                 </div>
                 <div class="bg-gray-50 rounded-md p-4 hover:border-2 hover:border-green-500">
                     <div class="flex justify-between">
@@ -190,7 +207,7 @@
                     </div>
 
                     <div class="px-16">
-                        <img class="rounded-md w-full" style="aspect-ratio: 1 / 1; " src="https://picsum.photos/1000"
+                        <img class="rounded-md w-full" style="aspect-ratio: 1 / 1; " src="https://picsum.photos/200"
                             alt="" />
                     </div>
                 </div>

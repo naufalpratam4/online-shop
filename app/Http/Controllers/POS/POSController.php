@@ -89,14 +89,16 @@ class POSController extends Controller
     public function UpdateJumlahProduk(Request $request)
     {
         $user = auth()->user();
+        $cart = Cart::where('user_id', $user->id)->first();
 
         $product_id = $request->input('product_id');
         $jumlah = $request->input('jumlah');
 
         $product = Product::where('id', $product_id)->first();
         // Cari produk berdasarkan product_id
-        $cartItem = CartItem::where('product_id', $product_id)
+        $cartItem = CartItem::where('product_id', $product_id)->where('cart_id', $cart->id)
             ->first();
+        // untuk menjumlah harga produk
         $total_jumlah_harga =   $product->harga * $jumlah;
 
 

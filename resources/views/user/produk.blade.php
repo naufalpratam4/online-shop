@@ -7,7 +7,7 @@
             @csrf
             <div
                 class="group mx-auto my-5 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-                <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="">
+                <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="{{ route('product.detail') }}">
                     <img class="peer absolute top-0 right-0 h-full w-full object-cover"
                         src="{{ isset($item->foto_produk) ? asset('storage/' . $item->foto_produk) : '' }}"
                         alt="product image" />

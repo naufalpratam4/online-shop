@@ -168,10 +168,10 @@
                                     <td class="px-4 py-3">{{ $item->kategori }}</td>
                                     <td class="px-4 py-3">{{ $item->pengantaran }}</td>
                                     <td class="px-4 py-3 max-w-xs">
-                                        <p class="truncate overflow-hidden whitespace-nowrap">{{ $item->alamat }}</p>
+                                        <p class="truncate overflow-hidden w-52">{{ $item->alamat }}</p>
                                     </td>
-                                    <td class="px-4 py-3 " style="width: 5px">
-                                        <p class="truncate overflow-hidden whitespace-nowrap">{{ $item->deskripsi }}</p>
+                                    <td class="px-4 py-3 ">
+                                        <p class="truncate overflow-hidden w-52 ">{{ $item->deskripsi }}</p>
                                     </td>
 
                                     <td class="px-4 py-3">

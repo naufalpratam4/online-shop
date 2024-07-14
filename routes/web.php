@@ -4,7 +4,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\auth\validateForm;
 use App\Http\Controllers\POS\POSController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\ProductController as AdminProductController;
 use App\Http\Controllers\KategoriController;
 
 use App\Http\Controllers\User\UserController;
@@ -15,9 +16,7 @@ use App\Http\Controllers\User\CartUserController;
 
 Route::get('/', [UserController::class, 'index']);
 
-Route::get('product-detail', function () {
-    return view('user.product.productDetail');
-});
+Route::get('product-detail', [ProductController::class, 'productDetail'])->name('product.detail');
 
 Route::get('/login', function () {
     return view('user.auth.loginUser');
@@ -32,6 +31,9 @@ Route::post('/register', [validateForm::class, 'registerUser'])->name('register.
 // User after login
 Route::middleware(['User'])->group(function () {
     Route::get('/cart', [CartUserController::class, 'index']);
+    Route::get('/invoice', function () {
+        return view('user.cart.invoice');
+    })->name('user.invoice');
     Route::get('/user-detail', [UserController::class, 'userDetail']);
     Route::get('/myorder', [UserController::class, 'myOrder']);
 
@@ -59,13 +61,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
         // Admin produk
-        Route::get('produk', [ProductController::class, 'index']);
-        Route::get('produk/{nama_produk}', [ProductController::class, 'productId'])->name('admin.productId');
-        Route::post('produk/post', [ProductController::class, 'addProduk'])->name('admin.add.produk');
-        Route::post('produk/visible/{id}', [ProductController::class, 'visible'])->name('admin.produk.visible');
-        Route::post('produk/edit/{id}', [ProductController::class, 'updateProduct'])->name('admin.produk.edit');
+        Route::get('produk', [AdminProductController::class, 'index']);
+        Route::get('produk/{nama_produk}', [AdminProductController::class, 'productId'])->name('admin.productId');
+        Route::post('produk/post', [AdminProductController::class, 'addProduk'])->name('admin.add.produk');
+        Route::post('produk/visible/{id}', [AdminProductController::class, 'visible'])->name('admin.produk.visible');
+        Route::post('produk/edit/{id}', [AdminProductController::class, 'updateProduct'])->name('admin.produk.edit');
         Route::post('produk-kategori/post', [KategoriController::class, 'kategoriPost'])->name('admin.add.kategori');
-        Route::delete('produk/delete/{id}', [ProductController::class, 'deleteProduct'])->name('admin.delete.produk');
+        Route::delete('produk/delete/{id}', [AdminProductController::class, 'deleteProduct'])->name('admin.delete.produk');
 
         // Admin POS
         Route::get('pos', [POSController::class, 'index']);
