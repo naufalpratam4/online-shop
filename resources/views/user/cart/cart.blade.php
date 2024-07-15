@@ -28,16 +28,16 @@
             </button>
         </div>
     @endif
-    <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
-        <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <section class="bg-white antialiased dark:bg-gray-900 ">
+        <div class="mx-auto max-w-screen-xl px-4 2xl:px-0 ">
             <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Shopping Cart</h2>
 
-            <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
-                <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
-                    @foreach ($cartItem as $item)
-                        <div class="space-y-6 pb-1 ">
+            <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8 ">
+                <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl  ">
+                    <div class="space-y-3 pb-1 overflow-y-auto" style="height: 500px">
+                        @foreach ($cartItem as $item)
                             <div
-                                class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                                class="rounded-lg border border-gray-200 bg-white p-4 shadow-md dark:border-gray-700 dark:bg-gray-800 md:p-6">
                                 <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                                     <a href="#" class="w-20 shrink-0 md:order-1">
                                         <img class="h-20 w-20 dark:hidden"
@@ -126,10 +126,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-
-                    <div class="hidden xl:mt-8 xl:block">
+                        @endforeach
+                    </div>
+                    <div class="hidden xl:mt-8 xl:block pb-5">
                         <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">People also bought</h3>
                         <div class="mt-6 grid grid-cols-3 gap-4 sm:mt-8">
 
@@ -177,6 +176,7 @@
                         </div>
                     </div>
                 </div>
+                {{-- @include('user.cart.pagination.pagination') --}}
 
                 <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
                     <div
@@ -184,7 +184,7 @@
                         <p class="text-xl font-semibold text-gray-900 dark:text-white">Order summary</p>
 
                         <div class="space-y-4">
-                            <div class="space-y-2">
+                            <div class="space-y-2 overflow-y-auto overflow-x-hidden" style="height: 250px">
                                 @foreach ($cartItem as $item)
                                     <dl class="flex items-center justify-between gap-4">
                                         <dt class="text-base font-normal text-gray-500 dark:text-gray-400">
@@ -201,11 +201,10 @@
                                     <dt class="text-base font-normal text-gray-500 dark:text-gray-400">
                                         Biaya Aplikasi
                                     </dt>
-
-                                    <dd class="text-base font-medium text-gray-900 dark:text-white">@rupiah($biayaAplikasi)
-                                    </dd>
+                                    <dd class="text-base font-medium text-gray-900 dark:text-white">@rupiah($biayaAplikasi)</dd>
                                 </dl>
                             </div>
+
 
                             <dl
                                 class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">

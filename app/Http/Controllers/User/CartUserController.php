@@ -154,13 +154,16 @@ class CartUserController extends Controller
     public function order()
     {
         $user = auth()->user();
+
         $cartId = Cart::where('user_id', $user->id)->first();
         $cartItem = CartItem::with('product')->where('cart_id', $cartId->id)->get();
-        $total_jumlah_harga = $cartItem->sum('total_harga');
+        $harga = $cartItem->sum('total_harga');
+        $biayaAplikasi = 1000;
+        $total_jumlah_harga = $harga + $biayaAplikasi;
         // dd($total_jumlah_harga);
 
         // dd($cartItem);
-        return view('user.cart.order', compact('user', 'cartItem', 'total_jumlah_harga'));
+        return view('user.cart.order', compact('user', 'cartItem', 'total_jumlah_harga', 'biayaAplikasi'));
     }
     public function checkout(Request $request)
     {
@@ -178,8 +181,9 @@ class CartUserController extends Controller
         if ($cartItems->isEmpty()) {
             return response()->json(['message' => 'Cart is empty'], 400);
         }
+        $biayaAplikasi = 1000;
 
-        $total_jumlah_harga = $cartItems->sum('total_harga');
+        $total_jumlah_harga = $biayaAplikasi + $cartItems->sum('total_harga');
 
         $today = Carbon::now();
         $date = $today->format('Ymd');

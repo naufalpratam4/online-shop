@@ -50,7 +50,7 @@
                 </div>
                 <div class="flex items-center mb-3">
                     <div class="w-40">Tanggal Lahir</div>
-                    <div>Tanggal Lahir
+                    <div>{{ $user->tgl_lahir ? $user->tgl_lahir : 'Tanggal Lahir' }}
                         <button type="button" id="updateProductButton-{{ $user->id }}"
                             data-modal-target="updateTglLahirModal-{{ $user->id }}"
                             data-modal-toggle="updateTglLahirModal-{{ $user->id }}" class="text-green-500">
@@ -60,7 +60,8 @@
                 </div>
                 <div class="flex items-center mb-3">
                     <div class="w-40">Jenis Kelamin</div>
-                    <div>Jenis Kelamin <button type="button" id="updateProductButton-{{ $user->id }}"
+                    <div>{{ $user->jenis_kelamin ? $user->jenis_kelamin : 'Jenis Kelamin' }} <button type="button"
+                            id="updateProductButton-{{ $user->id }}"
                             data-modal-target="updateJenisKelaminModal-{{ $user->id }}"
                             data-modal-toggle="updateJenisKelaminModal-{{ $user->id }}" class="text-green-500">
                             Edit
@@ -74,6 +75,9 @@
                             data-modal-toggle="updateEmailModal-{{ $user->id }}" class="text-green-500">
                             Edit
                         </button>
+                        @if ($errors->has('email'))
+                            <p class="text-red-600 text-sm">{{ $errors->first('email') }}</p>
+                        @endif
                     </div>
                 </div>
                 <div class="flex items-center mb-3">

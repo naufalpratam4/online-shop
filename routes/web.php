@@ -13,6 +13,7 @@ use App\Http\Controllers\Jastip\JastipController;
 use App\Http\Controllers\Dasboard\DashboardController;
 use App\Http\Controllers\Data_transaksi\DataTransaksiController;
 use App\Http\Controllers\User\CartUserController;
+use App\Http\Controllers\User\EditUserDetailController;
 
 Route::get('/', [UserController::class, 'index']);
 
@@ -32,7 +33,16 @@ Route::post('/register', [validateForm::class, 'registerUser'])->name('register.
 Route::middleware(['User'])->group(function () {
     Route::get('/cart', [CartUserController::class, 'index']);
     Route::get('/order', [CartUserController::class, 'order'])->name('user.order');
+
+    // user detail
     Route::get('/user-detail', [UserController::class, 'userDetail']);
+    Route::post('/user-detail/name', [EditUserDetailController::class, 'Name'])->name('user.edit.name');
+    Route::post('/user-detail/tgl_lahir', [EditUserDetailController::class, 'tgl_lahir'])->name('user.edit.tgl');
+    Route::post('/user-detail/email', [EditUserDetailController::class, 'email'])->name('user.edit.email');
+    Route::post('/user-detail/no_hp', [EditUserDetailController::class, 'no_hp'])->name('user.edit.no_hp');
+    Route::post('/user-detail/jenis_kelamin', [EditUserDetailController::class, 'jenis_kelamin'])->name('user.edit.jenis_kelamin');
+    Route::post('/user-detail/alamat', [EditUserDetailController::class, 'Alamat'])->name('user.edit.alamat');
+    // end user detail
     Route::get('/myorder', [UserController::class, 'myOrder']);
 
     Route::post('/order', [CartUserController::class, 'POSAdd'])->name('user.posAdd');

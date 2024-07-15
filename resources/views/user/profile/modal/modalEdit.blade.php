@@ -7,7 +7,7 @@
             <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Edit Profil
+                    Edit Nama
                 </h3>
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -22,7 +22,8 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="#">
+            <form action="{{ route('user.edit.name') }}" method="POST">
+                @csrf
                 <div class="grid gap-4 mb-4 ">
                     <div>
                         <label for="name"

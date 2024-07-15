@@ -22,12 +22,13 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="#">
+            <form action="{{ route('user.edit.tgl') }}" method="POST">
+                @csrf
                 <div class="grid gap-4 mb-4 ">
                     <div>
-                        <label for="birthdate"
+                        <label for="tgl_lahir"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal Lahir</label>
-                        <input type="date" id="birthdate" name="birthdate"
+                        <input type="date" id="tgl_lahir" name="tgl_lahir" value="{{ $user->tgl_lahir }}"
                             class="block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
 

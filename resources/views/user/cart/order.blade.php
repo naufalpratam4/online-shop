@@ -8,7 +8,7 @@
                 <div class="border-b pb-4 mb-4">
                     <h2 class="text-xl font-semibold">Customer Information</h2>
                     <p class="mt-2"><strong>Name:</strong> {{ $user->name }}</p>
-                    <p><strong>Address:</strong>{{ $user->alamat }}</p>
+                    <p><strong>Address:</strong> {{ $user->alamat }}</p>
                 </div>
                 <div class="border-b pb-4 mb-4">
                     <h2 class="text-xl font-semibold">Order Summary</h2>
@@ -20,6 +20,10 @@
                                 <span>@rupiah($item->product->harga)</span>
                             </li>
                         @endforeach
+                        <li class="flex justify-between py-2">
+                            <span>Biaya Aplikasi</span>
+                            <span>@rupiah($biayaAplikasi)</span>
+                        </li>
                     </ul>
                 </div>
                 <div class="flex justify-between text-xl font-bold">
