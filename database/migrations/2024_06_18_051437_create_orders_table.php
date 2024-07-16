@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->constrained('users')->onDelete('cascade');
+            $table->uuid('user_id')->nullable();
             $table->decimal('total', 15, 2);
             $table->string('status')->default('pending');
             $table->string('nomor_order')->unique();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
