@@ -17,7 +17,7 @@
                             <li class="flex justify-between py-2">
                                 <span>{{ $item->product->nama_produk }}</span>
                                 <span>x{{ $item->jumlah }}</span>
-                                <span>@rupiah($item->product->harga)</span>
+                                <span>@rupiah($item->jumlah * $item->product->harga)</span>
                             </li>
                         @endforeach
                         <li class="flex justify-between py-2">

@@ -60,6 +60,16 @@
                                 </dl>
 
                                 <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
+                                    <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Products:</dt>
+                                    <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
+                                        <ul>
+                                            @foreach ($item->orderItems as $orderItem)
+                                                <li>{{ $orderItem->product->nama_produk }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </dd>
+                                </dl>
+                                <dl class="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                                     <dt class="text-base font-medium text-gray-500 dark:text-gray-400">Price:</dt>
                                     <dd class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
                                         @rupiah($item->total)</dd>
@@ -101,6 +111,12 @@
                                             </svg>
                                             In transit
                                         </dd>
+                                    @elseif ($item->status == 'selesai')
+                                        <dd
+                                            class="me-2 mt-1.5 inline-flex items-center rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
+                                            <i class="fa-solid fa-check pe-1"></i>
+                                            Selesai
+                                        </dd>
                                     @endif
 
 
@@ -111,6 +127,21 @@
                                         class="w-full me-1 rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto">Cancel
                                         order</button>
                                 @endif
+
+                                @if ($item->status == 'selesai')
+                                    <div class="flex justify-center m-5">
+                                        <button id="defaultModalButton-{{ $item->id }}"
+                                            data-modal-target="defaultModal-{{ $item->id }}"
+                                            data-modal-toggle="defaultModal-{{ $item->id }}"
+                                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 me-1 text-center"
+                                            type="button">
+                                            Review Produk
+                                        </button>
+                                    </div>
+                                    @include('user.myorder.modal.reviewModal', ['item' => $item])
+                                @endif
+
+
 
                                 <a href="#"
                                     class="w-full inline-flex justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto">View

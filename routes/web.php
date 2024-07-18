@@ -15,10 +15,11 @@ use App\Http\Controllers\Data_transaksi\DataTransaksiController;
 use App\Http\Controllers\PesananOnline\PesananOnlineController;
 use App\Http\Controllers\User\CartUserController;
 use App\Http\Controllers\User\EditUserDetailController;
+use App\Http\Controllers\User\ReviewController;
 
 Route::get('/', [UserController::class, 'index']);
 
-Route::get('product-detail', [ProductController::class, 'productDetail'])->name('product.detail');
+Route::get('/product-detail/{id}', [ProductController::class, 'productDetail'])->name('product.detail');
 
 Route::get('/login', function () {
     return view('user.auth.loginUser');
@@ -45,6 +46,9 @@ Route::middleware(['User'])->group(function () {
     Route::post('/user-detail/alamat', [EditUserDetailController::class, 'Alamat'])->name('user.edit.alamat');
     // end user detail
     Route::get('/myorder', [UserController::class, 'myOrder']);
+
+    // review
+    Route::post('/review', [ReviewController::class, 'review'])->name('review');
 
     Route::post('/order', [CartUserController::class, 'POSAdd'])->name('user.posAdd');
     Route::post('/order-min', [CartUserController::class, 'POSMin'])->name('user.posMin');

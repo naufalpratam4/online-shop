@@ -36,11 +36,22 @@ class UserController extends Controller
     public function myOrder()
     {
         $user = auth()->user();
-        $cart = Cart::where('user_id', $user->id)->first();
-        // dd($cart);
-        $order = Orders::where('user_id', $user->id)->get();
-        // dd($order);
+        $cart = Cart::where('user_id', $user->id)->first(); // Ambil keranjang yang terkait dengan pengguna ini
+        $order = Orders::where('user_id', $user->id)->get(); // Ambil semua pesanan untuk pengguna ini
+
+        // Ambil detail item untuk setiap pesanan
+        foreach ($order as $item) {
+            $item->orderItems = order_item::where('order_id', $item->id)->get();
+
+            // Ambil nama produk untuk setiap OrderItem
+            foreach ($item->orderItems as $orderItem) {
+                $namaProduk = $orderItem->product->nama; // Sesuaikan 'nama' dengan nama kolom yang menyimpan nama produk
+                // Lakukan apa pun yang perlu Anda lakukan dengan $namaProduk
+            }
+        }
+
         $cartNotif = $user ? CartItem::where('cart_id', $cart->id)->count() : '0';
+
         return view('user.myorder.myorder', compact('user', 'cartNotif', 'order'));
     }
 }

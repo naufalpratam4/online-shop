@@ -7,7 +7,8 @@
             @csrf
             <div
                 class="group mx-auto my-5 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md">
-                <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="{{ route('product.detail') }}">
+                <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl"
+                    href="{{ route('product.detail', ['id' => $item->id]) }}">
                     <img class="peer absolute top-0 right-0 h-full w-full object-cover"
                         src="{{ isset($item->foto_produk) ? asset('storage/' . $item->foto_produk) : '' }}"
                         alt="product image" />
@@ -22,6 +23,7 @@
                         <p>
                             <span class="text-3xl font-bold text-slate-900">@rupiah($item->harga)</span>
                         </p>
+                        <p>Stok : {{ $item->stock }}</p>
                     </div>
                     <button type="submit"
                         class="flex items-center justify-center rounded-md bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
