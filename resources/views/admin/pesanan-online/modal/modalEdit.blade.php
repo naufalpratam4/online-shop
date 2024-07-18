@@ -23,7 +23,8 @@
             </div>
 
             <!-- Modal body -->
-            <form action="#">
+            <form action="{{ route('admin.pesanan.update', $item->id) }}" method="POST">
+                @csrf
                 <div class="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nomor
@@ -58,11 +59,14 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                         <select id="status" name="status"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected="" value="">Pilih status order</option>
+                            <option selected="" value="{{ $item->status ? $item->status : 'Pending' }}">
+                                {{ $item->status ? $item->status : 'Pilih status order' }}</option>
+                            <option value="pending">Pre Order</option>
                             <option value="confirmed">confirmed</option>
-                            <option value="canceled">cancel</option>
                             <option value="in transit">in transit</option>
                             <option value="in delivery">in delivery</option>
+                            <option value="selesai">Selesai</option>
+                            <option value="canceled">cancel</option>
                         </select>
                     </div>
                     <div class="sm:col-span-2">

@@ -112,6 +112,7 @@ Route::prefix('admin')->group(function () {
 
         // Admin - Pesanan Online
         Route::get('pesanan-online', [PesananOnlineController::class, 'index'])->name('admin.pesanan-online');
+        Route::post('pesanan-online/update/{id}', [PesananOnlineController::class, 'updatePesanan'])->name('admin.pesanan.update');
         // admin logout
         Route::post('/admin-logout', [validateForm::class, 'logoutAdmin'])->name('admin.logout');
     });

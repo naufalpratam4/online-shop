@@ -37,4 +37,13 @@ class PesananOnlineController extends Controller
         // dd($riwayat);
         return view('admin.pesanan-online.index', compact('user', 'riwayat'));
     }
+    public function updatePesanan(Request $request, $id)
+    {
+        $user = auth()->user();
+        $data = [
+            'status' => $request->input('status')
+        ];
+        Orders::findOrFail($id)->update($data);
+        return redirect()->back()->with('success', 'Berhasil update data pesanan');
+    }
 }

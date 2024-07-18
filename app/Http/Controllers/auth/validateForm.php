@@ -17,14 +17,24 @@ class validateForm extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect('/');
+            $user = Auth::user();
+
+            // Cek peran (role) pengguna
+            if ($user->role == 'Admin') { // Contoh: isAdmin() adalah metode di model User untuk mengecek apakah pengguna adalah admin
+                return redirect('/admin');
+            } else {
+                return redirect('/');
+            }
         }
 
+        // Jika tidak berhasil login, tampilkan pesan error
         if (!$request->filled('email') || !User::where('email', $request->input('email'))->exists()) {
             return redirect()->back()->withErrors(['email' => 'Email yang Anda masukkan tidak terdaftar.']);
         }
+
         return redirect()->back()->withErrors(['password' => 'Password salah']);
     }
+
     public function registerUser(Request $request)
     {
         $request->validate([
@@ -52,7 +62,7 @@ class validateForm extends Controller
 
 
         User::create($data);
-        return redirect()->back()->with('success', 'Berhasil Register Akun, silahkan login');
+        return redirect('/login')->with('success', 'Berhasil Register Akun, silahkan login');
     }
     public function logoutUser()
     {
