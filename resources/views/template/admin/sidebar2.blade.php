@@ -69,6 +69,13 @@
                         <span class="ms-3">Data Transaksi</span>
                     </a>
                 </li>
+                <li class="{{ Request::is('admin/pesanan-online') ? 'bg-green-500 rounded-lg' : '' }}">
+                    <a href="/admin/pesanan-online"
+                        class="{{ Request::is('admin/pesanan-online') ? 'text-white' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white group">
+                        <i class="fa-solid fa-shop"></i>
+                        <span class="ms-3">Pesanan Online</span>
+                    </a>
+                </li>
             </div>
             <div class="">
 

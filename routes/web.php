@@ -12,6 +12,7 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Jastip\JastipController;
 use App\Http\Controllers\Dasboard\DashboardController;
 use App\Http\Controllers\Data_transaksi\DataTransaksiController;
+use App\Http\Controllers\PesananOnline\PesananOnlineController;
 use App\Http\Controllers\User\CartUserController;
 use App\Http\Controllers\User\EditUserDetailController;
 
@@ -104,6 +105,9 @@ Route::prefix('admin')->group(function () {
         Route::get('data-transaksi/detail/{order_id}/export', [DataTransaksiController::class, 'exportExcel'])->name('orders.data-transaksi.detail.export');
         Route::delete('data-transaksi/delete/{order_id}', [DataTransaksiController::class, 'deleteDataTransaksi'])->name('admin.data-transaksi.delete');
         Route::get('data-transaksi/export-excel', [DataTransaksiController::class, 'downloadTransaksi'])->name('admin.transaksi.export');
+
+        // Admin - Pesanan Online
+        Route::get('pesanan-online', [PesananOnlineController::class, 'index'])->name('admin.pesanan-online');
         // admin logout
         Route::post('/admin-logout', [validateForm::class, 'logoutAdmin'])->name('admin.logout');
     });
