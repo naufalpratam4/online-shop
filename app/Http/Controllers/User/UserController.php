@@ -54,4 +54,9 @@ class UserController extends Controller
 
         return view('user.myorder.myorder', compact('user', 'cartNotif', 'order'));
     }
+    public function cancelOrder()
+    {
+        $user = auth()->user();
+        return redirect()->back()->with('success', 'Berhasil cancel update');
+    }
 }

@@ -133,9 +133,11 @@
 
                                 </dl>
                                 @if ($item->status == 'pending')
-                                    <button type="button"
+                                    <button type="button" data-modal-target="popup-modal-{{ $item->id }}"
+                                        data-modal-toggle="popup-modal-{{ $item->id }}"
                                         class="w-full me-1 rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto">Cancel
                                         order</button>
+                                    @include('user.myorder.modal.cancelOrderModal')
                                 @endif
 
                                 @if ($item->status == 'selesai')

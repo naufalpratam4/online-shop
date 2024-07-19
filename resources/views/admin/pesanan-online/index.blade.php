@@ -1,6 +1,7 @@
 @extends('admin.index')
 @section('content')
-    <div class="mx-20 md:ms-28 text-2xl font-semibold ">Pesanan Online</div>
+    <div class="mx-20 md:ms-28 text-2xl font-semibold ">
+        Pesanan Online</div>
     @if (session('error'))
         <div class="text-red-500">{{ session('error') }}</div>
     @endif
@@ -140,6 +141,7 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr class="text-center">
                                 <th scope="col" class="px-4 py-3">Nomor Transaksi</th>
+                                <th scope="col" class="px-4 py-3">Produk</th>
                                 <th scope="col" class="px-4 py-3">Tanggal<i class="fa-solid fa-sort"></i></th>
                                 <th scope="col" class="px-4 py-3">Nama Pelanggan</th>
                                 <th scope="col" class="px-4 py-3">Total Harga</th>
@@ -153,6 +155,18 @@
                                     <th scope="row"
                                         class="text-center px-4 py-3 font-medium text-gray-900 whitespace-nowrap">
                                         {{ $item['nomor_order'] }}</th>
+                                    <td class="px-4 py-3">
+                                        <span>
+
+                                            @foreach ($item->orderItems as $orderItem)
+                                                <div class="flex">
+                                                    <li class="pe-1">{{ $orderItem->product->nama_produk }} = </li>
+                                                    <div> {{ $orderItem->quantity }}</div>
+                                                </div>
+                                            @endforeach
+                                        </span>
+                                    </td>
+
                                     <td class="px-4 py-3">{{ $item->created_at->format('Y-m-d') }}</td>
                                     <td class="px-4 py-3">{{ $item->user->name }}</td>
                                     <td class="px-4 py-3">@rupiah($item['total'])</td>
