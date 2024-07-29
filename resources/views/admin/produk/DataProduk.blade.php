@@ -17,6 +17,9 @@
                             <div></div>
                         @endif
                     </p>
+                    <p class="text-sm font-semibold mb-3 md:pt-4 text-gray-700 dark:text-gray-400">
+                        Stok : {{ $item->stock }}
+                    </p>
 
                 </div>
                 <div class="flex gap-4 justify-between">

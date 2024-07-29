@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\POS;
 
-use App\Models\CartItem;
+use Carbon\Carbon;
+use App\Models\Cart;
+use App\Models\Orders;
 use App\Models\Product;
 use App\Models\Riwayat;
+use App\Models\CartItem;
+use App\Models\order_item;
 use App\Models\OrderAdmin;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Cart;
-use App\Models\order_item;
-use App\Models\Orders;
 
 class POSController extends Controller
 {
@@ -150,14 +151,32 @@ class POSController extends Controller
         $total_jumlah_harga = $cartItem->sum('total_harga');
         // dd($total_jumlah_harga);
 
-        $randomNumber = random_int(10000000, 99999999); // Ubah rentang angka sesuai kebutuhan
+        $today = Carbon::now();
+        $date = $today->format('dmY');
+
+        // Untuk mengetahui order terakhir pada hari ini
+        $lastOrder = Orders::whereDate('created_at', $today->toDateString())
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        // Jika belum ada order hari ini, mulai dari 1
+        if (!$lastOrder) {
+            $orderNumber = 1;
+        } else {
+            // Jika sudah ada, tambah 1 dari nomor urut terakhir
+            $lastOrderNumber = (int)substr($lastOrder->nomor_order, -4);
+            $orderNumber = $lastOrderNumber + 1;
+        }
+
+        // Format nomor pesanan
+        $formattedOrderNumber = sprintf('AdminDK-%s-%04d', $date, $orderNumber);
 
         // Membuat order baru
         $order = Orders::create([
             'user_id' => auth()->id(),
             'total' => $total_jumlah_harga,
             'status' => 'pending',
-            'nomor_order' => $randomNumber
+            'nomor_order' => $formattedOrderNumber
         ]);
 
         $jumlah_product = $cartItem->sum('jumlah');
