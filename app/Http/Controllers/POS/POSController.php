@@ -20,7 +20,7 @@ class POSController extends Controller
     {
         $user = auth()->user();
         // $order = OrderAdmin::with('product')->where('admin_id', $user->id)->where('status', 'Belum Selesai')->get();
-        $product = Product::where('visible', 1)->get();
+        $product = Product::where('visible', 1)->where('stock', '>', 0)->get();
 
         // $orders = OrderAdmin::where('admin_id', $user->id)->where('status', 'Belum Selesai')->get();
 
