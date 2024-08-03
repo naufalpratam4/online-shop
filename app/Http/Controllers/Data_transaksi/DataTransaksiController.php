@@ -25,7 +25,11 @@ class DataTransaksiController extends Controller
         $page = $request->input('page', 1);
 
         // Ambil semua data dan kelompokkan
-        $riwayatGrouped = Riwayat::with('order')->orderBy('order_id')->get()->groupBy('order_id');
+        $riwayatGrouped = Riwayat::with('order')
+            ->orderBy('order_id', 'desc')
+            ->get()
+            ->groupBy('order_id');
+
 
         $riwayatMerged = $riwayatGrouped->map(function ($group) {
             $merged = [

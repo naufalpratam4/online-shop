@@ -32,7 +32,7 @@
     <form action="{{ route('admin.order.riwayat') }}" method="POST">
         @csrf
         <div class="text-center mb-4">
-            <h1 class="text-2xl font-bold">Udang Keju Maknyes</h1>
+            <h1 class="text-2xl font-bold">Darma Kedai Keju</h1>
             <p class="text-sm text-gray-600">Jl. Bukit Bringin Timur E/160, Kota Semarang</p>
             <p class="text-sm text-gray-600">Telp: 085799857403</p>
             <p class="text-sm text-gray-600">Tanggal: {{ now()->format('Y-m-d') }}</p>
@@ -56,7 +56,7 @@
 
 
         <div class="text-center text-sm mb-4">
-            <p class="text-gray-600">Terima kasih telah berbelanja di Toko Baju Elegan!</p>
+            <p class="text-gray-600">Terima kasih telah berbelanja di Darma Kedai Keju</p>
             <p class="text-gray-600">Silakan simpan struk ini sebagai bukti pembayaran.</p>
         </div>
 
@@ -69,7 +69,7 @@
 
         <div class="text-center text-xs text-gray-600 mt-4">
             <p>================================</p>
-            <p>Powered by Tailwind CSS</p>
+            <p></p>
         </div>
     </form>
 
